@@ -1,0 +1,18 @@
+
+<form name="input" action="http://127.0.0.1:1212/display" method="post">
+Classification: 
+<select name="classification">
+<option value="formative">Formative</option>
+<option value="design">Design</option>
+<option value="development">Development</option>
+</select>
+<br>
+Hours: <input type="text" name="hours">
+<br>
+Deadline: <input type="text" name="deadline">
+<br>
+Billing Rate: <input type="text" name="billingrate">
+<br>
+<input type="submit" value="Review">
+<input type="submit" value="Next Milestone" onclick="window.location = 'http://127.0.0.1:1212/insertestimate' ">
+</form>
