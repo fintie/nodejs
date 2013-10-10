@@ -1,16 +1,25 @@
 <html>
-<form name="input" action="http://127.0.0.1:1212/savemilestone" method="post">
+<form name="input" action="http://127.0.0.1:1212/updateactivity" method="post">
 Customer ID: <%= customerid %>
+<br>
+Status:
+<br>
+Producer: <%= producer %>
+<br>
+Price method:
 <br>
 Classification: <%= classification %>
 <br>
 Hours: <%= hours %>
 <br>
+Trigger: <%= trigger %>
+<br>
 Deadline: <%= deadline %>
 <br>
-Billing Code: <%= billingrate %>
+Consideration:
 <br>
-<input type="submit" value="Generate">
-<input type="button" value="Cancel" onclick="window.location = 'http://localhost/nodejs' " />
+<input type="submit" value="Edit">
+<input type="button" value="Finish" onclick="window.location = 'http://localhost/nodejs' " />
+<input type="button" value="Publish" onclick="window.location = 'http://localhost/nodejs' " />
 </form>
 </html>
