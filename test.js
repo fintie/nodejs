@@ -43,7 +43,7 @@ app.get('/getallcustomers', function (req, res) {
 });
 app.get('/selectcustomer', function (req, res){
 	connection.query("SELECT ID, code FROM customers;", function (error, rows, fields) {
-		var output = '<html><head></head><body><form name="input" action="http://127.0.0.1:1212/milestonepage" method="post"><select name="code">';
+		var output = '<html><head></head><body><form name="input" action="/milestonepage" method="post"><select name="code">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].code + '</option>';
 		}
@@ -59,7 +59,7 @@ app.get('/selectcustomer', function (req, res){
 
 app.get('/selectestimate', function (req, res){
 	connection.query("SELECT ID FROM estimates;", function (error, rows, fields) {
-		var output = '<html><head></head><body><form name="input" action="http://127.0.0.1:1212/generate" method="post"><select name="estimate">';
+		var output = '<html><head></head><body><form name="input" action="/generate" method="post"><select name="estimate">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
 		}
@@ -106,7 +106,7 @@ app.post('/milestonepage', function (req, res){
 
 	customerid = req.body.code;
 	number = req.body.mnumber;
-	var output = '<html><body><form name="input" action="http://127.0.0.1:1212/generate" method="post">';
+	var output = '<html><body><form name="input" action="/generate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
 	for (var i = 0; i < number; i++)
 	{
@@ -240,7 +240,7 @@ app.post('/updateactivity', function (req, res){
 
 	customerid = req.body.code;
 	//var classification = new Array();
-	var output = '<html><body><form name="input" action="http://127.0.0.1:1212/regenerate" method="post">';
+	var output = '<html><body><form name="input" action="/regenerate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
 	for (var i = 0; i < number; i++)
 	{
