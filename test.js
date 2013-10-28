@@ -57,6 +57,11 @@ app.get('/addcustomerpage', function (req, res) {
 	res.end();
 });
 
+app.get('/estimatepage', function (req, res) {
+	res.render('estimate.ejs');
+	res.end();
+});
+
 
 app.get('/getallcustomers', function (req, res) {
 	connection.query('SELECT * FROM customers;', function (error, rows, fields) { 
