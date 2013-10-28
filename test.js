@@ -32,6 +32,21 @@ app.get('/api', function (req, res) {
 	res.send('Our Sample API is up...');
 });
 
+app.get('/', function (req, res) {
+	res.render('index.ejs');
+	res.end();
+})
+
+app.get('/internal' , function (req, res) {
+	res.render('internal.ejs');
+	res.end();
+});
+
+app.get('/external' , function (req, res) {
+	res.render('external.ejs');
+	res.end();
+});
+
 app.get('customerpage', function (req, res) {
 	res.render('customer.ejs');
 	res.end();
@@ -42,7 +57,6 @@ app.get('addcustomerpage', function (req, res) {
 	res.end();
 });
 
-app.get
 
 app.get('/getallcustomers', function (req, res) {
 	connection.query('SELECT * FROM customers;', function (error, rows, fields) { 
