@@ -47,12 +47,12 @@ app.get('/external' , function (req, res) {
 	res.end();
 });
 
-app.get('customerpage', function (req, res) {
+app.get('/customerpage', function (req, res) {
 	res.render('customer.ejs');
 	res.end();
 });
 
-app.get('addcustomerpage', function (req, res) {
+app.get('/addcustomerpage', function (req, res) {
 	res.render('addcustomer.ejs');
 	res.end();
 });
