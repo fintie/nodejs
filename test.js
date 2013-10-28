@@ -90,7 +90,7 @@ app.get('/selectcustomer', function (req, res){
 
 app.get('/selectestimate', function (req, res){
 	connection.query("SELECT ID FROM estimates;", function (error, rows, fields) {
-		var output = '<html><head></head><body><form name="input" action="/generate" method="post"><select name="estimate">';
+		var output = '<html><head></head><body><form name="input" action="/generateexisting" method="post"><select name="estimate">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
 		}
