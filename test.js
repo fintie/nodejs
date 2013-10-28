@@ -32,6 +32,18 @@ app.get('/api', function (req, res) {
 	res.send('Our Sample API is up...');
 });
 
+app.get('customerpage', function (req, res) {
+	res.render('customer.ejs');
+	res.end();
+});
+
+app.get('addcustomerpage', function (req, res) {
+	res.render('addcustomer.ejs');
+	res.end();
+});
+
+app.get
+
 app.get('/getallcustomers', function (req, res) {
 	connection.query('SELECT * FROM customers;', function (error, rows, fields) { 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -69,22 +81,7 @@ app.get('/selectestimate', function (req, res){
 	});
 });		
 
-app.get('/customer/:id', function (req, res){
-	connection.query('SELECT * FROM customers where id ='+req.params.id, function (error, rows, fields) { 
-		res.writeHead(200, {'Content-Type': 'text/plain'});
-		str='';
-		if(rows.length==0)
-		{
-			res.end( 'no such record found...');
-			// break;
-		}
-		else
-		{
-			str = str + 'Customer is '+ rows[0].entityname +'\n';
-			res.end( str);
-		}
-	}); 
-});
+
 
 app.post('/insertcustomer', function (req, res){
 	console.log("POST: ");
