@@ -268,7 +268,7 @@ app.post('/updateactivity', function (req, res){
 
 app.get('/selectappestimate', function (req, res){
 	connection.query("SELECT e.ID FROM estimates e, milestones m, activity a WHERE e.ID = m.EstimateID AND m.ID = a.MilestoneID AND a.Status = 'Published';", function (error, rows, fields) {
-		var output = '<html><head></head><body><form name="input" action="http://127.0.0.1:1212/customerapproval" method="post"><select name="estimate">';
+		var output = '<html><head></head><body><form name="input" action="/customerapproval" method="post"><select name="estimate">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
 		}
