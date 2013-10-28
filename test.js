@@ -236,15 +236,32 @@ app.post('/generate', function (req, res){
 
 	});
 
-/*	
-	for (var i=0; i<number; i++){
-		console.log('INSERT INTO activity (Classification, Hours, Deadline) values ("' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-		connection.query('INSERT INTO activity (Classification, Hours, Deadline) values ("' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-		
-	}
-*/
 			res.render('display.ejs');
 			res.end();
+});
+
+app.post('/generateexisting', function(req, res){
+
+	estimateid = req.body.estimate;
+
+	console.log('SELECT COUNT(m.ID) as counts FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";');
+	connection.query('SELECT COUNT(m.ID) as counts FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";', function (error, rows, fields) {
+
+			number = rows[0].counts;
+	});
+
+	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
+	connection.query('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
+			
+			customerid = rows[0].CustomerID;
+			classification = rows[0].Classification;
+			hours = rows[0].Hours;
+			trigger = rows[0].Trigger;
+			deadline = rows[0].Deadline;
+			producer = 'user';
+			res.render('display.ejs');
+			res.end();
+	});
 });
 
 app.post('/updateactivity', function (req, res){
@@ -312,6 +329,23 @@ app.post('/approve', function (req, res){
 		
 	});
 
+});
+
+app.post('/insertuser', function (req, res){
+	console.log("POST: ");
+
+	firstname = req.body.firstname;
+	lastname = req.body.lastname;
+	email = req.body.email;
+	mobile = req.body.mobile;
+	classification = req.body.classification;
+
+	console.log('insert into users ( firstname , lastname , email, mobile, Classification) values ("' + firstname + '", "' + lastname + '", "' + email + '", "' + mobile + '", "' + classification +'");');
+	connection.query('insert into users ( firstname , lastname , email, mobile, Classification) values ("' + firstname + '", "' + lastname + '", "' + email + '", "' + mobile + '", "' + classification +'");', function (error, rows, fields) { 
+			// console.log(error);
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.end( 'user created');
+		}); 
 });
 
 // Launch server
