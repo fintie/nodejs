@@ -374,7 +374,7 @@ app.post('/insertuser', function (req, res){
 		}); 
 });
 
-app.post('/choosedate', function (req, res){
+app.get('/choosedate', function (req, res){
 	date = req.body.reference;
 	console.log('Date selected:' + date);
 	console.log('SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";');
