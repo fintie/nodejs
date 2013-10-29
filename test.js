@@ -67,6 +67,11 @@ app.get('/management', function (req, res) {
 	res.end();
 });
 
+app.get('/adduser', function (req, res) {
+	res.render('adduser.ejs');
+	res.end();
+});
+
 app.get('/getallcustomers', function (req, res) {
 	connection.query('SELECT * FROM customers;', function (error, rows, fields) { 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
