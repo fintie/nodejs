@@ -62,6 +62,10 @@ app.get('/estimatepage', function (req, res) {
 	res.end();
 });
 
+app.get('/management', function (req, res) {
+	res.render('management.ejs');
+	res.end();
+});
 
 app.get('/getallcustomers', function (req, res) {
 	connection.query('SELECT * FROM customers;', function (error, rows, fields) { 
