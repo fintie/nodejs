@@ -63,7 +63,7 @@ app.get('/estimatepage', function (req, res) {
 });
 
 app.get('/timepage', function (req, res) {
-	var output = '<html><form action="choosedate">';
+	var output = '<html><form action="/choosedate">';
 	output += 'Reference Date: <input type="date" name="reference">';
 	output += '<button type="submit" class="btn">Proceed</button>';
 	output += '<button type="submit" class="btn">Cancel</button></form></html>';
