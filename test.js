@@ -62,6 +62,12 @@ app.get('/estimatepage', function (req, res) {
 	res.end();
 });
 
+app.get('/timepage', function (req, res) {
+	res.render('time.ejs');
+	res.end();
+});
+
+
 app.get('/management', function (req, res) {
 	res.render('management.ejs');
 	res.end();
