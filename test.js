@@ -63,7 +63,7 @@ app.get('/estimatepage', function (req, res) {
 });
 
 app.get('/timepage', function (req, res) {
-	var output = '<html><form action="/choosedate">';
+	var output = '<html><form action="/choosedate method="post"">';
 	output += 'Reference Date: <input type="date" name="reference">';
 	output += '<button type="submit" class="btn">Proceed</button>';
 	output += '<button type="submit" class="btn">Cancel</button></form></html>';
@@ -374,7 +374,7 @@ app.post('/insertuser', function (req, res){
 		}); 
 });
 
-app.get('/choosedate', function (req, res){
+app.post('/choosedate', function (req, res){
 	date = req.body.reference;
 	console.log('Date selected:' + date);
 	console.log('SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";');
