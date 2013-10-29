@@ -271,7 +271,7 @@ app.post('/generateexisting', function(req, res){
 
 app.post('/updateactivity', function (req, res){
 
-	if(customerid = "")
+	if(customerid == "")
 	{
 		customerid = req.body.code;
 	}	
