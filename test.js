@@ -63,8 +63,11 @@ app.get('/estimatepage', function (req, res) {
 });
 
 app.get('/timepage', function (req, res) {
-	res.render('time.ejs');
-	res.end();
+	var output = '<form action="choosedate">';
+	output += 'Reference Date: <input type="date" name="reference">';
+	output += '<button type="submit" class="btn">Proceed</button>';
+	output += '<button type="submit" class="btn">Cancel</button></form>';
+	res.end(output);
 });
 
 
