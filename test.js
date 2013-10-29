@@ -371,5 +371,19 @@ app.post('/insertuser', function (req, res){
 		}); 
 });
 
+app.post('/choosedate', function (req, res){
+	date = req.body.date;
+	console.log('Date selected:' + date);
+	console.log('SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";');
+	connection.query(SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";', function (error, rows, fields) {
+			milestoneID = rows[0].MilestoneID;
+			classification = rows[0].Classification;
+			hours = rows[0].Hours;
+			
+			res.render('assigntime.ejs');
+			res.end();
+		});
+	
+});
 // Launch server
 app.listen(1212);
