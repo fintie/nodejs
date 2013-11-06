@@ -1,0 +1,32 @@
+<html>
+<form name="input" action="/updatestatus" method="post">
+Customer ID: <%= customerid %>
+<br>
+Estimate ID: <%= estimateid %>
+<br>
+Producer: <%= producer %>
+<br>
+Price method:
+<br>
+Classification: <%= classification %>
+<br>
+Hours: <%= hours %>
+<br>
+Trigger: <%= trigger %>
+<br>
+Deadline: <%= deadline %>
+<br>
+<select name="status">
+	<option value="satisfactory">Satisfactory</option>
+	<option value="unsatisfactory">Unatisfactory</option>
+</select>	
+
+
+<input type="submit" value="Submit">
+
+</form>
+
+
+<input type="button" value="Back" onclick="window.location = '/checklist' " />
+
+</html>

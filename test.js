@@ -407,6 +407,31 @@ app.get('/checklist', function (req,res){
 			res.writeHead(200, {'Content-Type': 'text/html'});
 			res.end(output);
 		});
-	});	
+});	
+
+app.get('/displaymilestone', function(req,res){
+
+	milestoneid = req.body.milestone;
+	console.log('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";');
+	connection.query('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";', function (error, rows, fields) {
+			customerid = rows[0].CustomerID;
+			estimateid = rows[0].EstimateID;
+			producer = rows[0].Producer;
+			classification = rows[0].Classification;
+			hours = rows[0].Hours;
+			trigger = rows[0].Trigger;
+			deadline = rows[0].Deadline;
+			
+
+			console.log('display all details on the page');
+
+			//res.cookie(hours,deadline,billingrate);
+			res.render('checkliststatus.ejs');
+			res.end();	
+		});	
+	
+
+});
+
 // Launch server
 app.listen(1212);
