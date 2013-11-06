@@ -263,6 +263,10 @@ app.post('/generate', function (req, res){
 			res.end();
 });
 
+app.post('/publish', function (req, res){
+	connection.query('')
+});
+
 app.post('/generateexisting', function(req, res){
 
 	estimateid = req.body.estimate;

@@ -19,7 +19,14 @@ Deadline: <%= deadline %>
 Consideration:
 <br>
 <input type="submit" value="Edit">
-<input type="button" value="Finish" onclick="window.location = '/' " />
-<input type="button" value="Publish" onclick="window.location = '/' " />
 </form>
+
+<input type="button" value="Finish" onclick="window.location = '/' " />
+
+<form name="input" action="/publish" method="post">
+	<input type="submit" value="Publish">
+</form>
+<!--
+<input type="button" value="Publish" onclick="window.location = '/' " />
+-->
 </html>
