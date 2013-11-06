@@ -403,7 +403,7 @@ app.get('/checklist', function (req,res){
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
 			}
-			output += '</select><input type="submit" value="Select"></form></body></html>';
+			output += '</select><input type="submit" value="Proceed"></form><form action="/estimatepage"><input type="submit" value="Back"></form></body></html>';
 			res.writeHead(200, {'Content-Type': 'text/html'});
 			res.end(output);
 		});
