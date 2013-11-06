@@ -264,7 +264,7 @@ app.post('/generate', function (req, res){
 });
 
 app.post('/publish', function (req, res){
-	connection.query('')
+	connection.query('');
 });
 
 app.post('/generateexisting', function(req, res){
@@ -398,7 +398,15 @@ app.post('/choosedate', function (req, res){
 });
 
 app.post('/checklist', function (req,res){
-	connection.query('SELECT MilestoneID FROM activity WHERE Producer="nick" AND Status= "Excuted"');
-});
+	connection.query("SELECT MilestoneID FROM activity WHERE Producer='nick' AND Status= 'Excuted';", function (error, rows, fields) {
+			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
+			for (var i in rows) {
+				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
+			}
+			output += '</select><input type="submit" value="Select"></form></body></html>';
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.end(output);
+		});
+	});	
 // Launch server
 app.listen(1212);
