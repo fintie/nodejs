@@ -409,7 +409,7 @@ app.get('/checklist', function (req,res){
 		});
 });	
 
-app.get('/displaymilestone', function(req,res){
+app.post('/displaymilestone', function(req,res){
 
 	milestoneid = req.body.milestone;
 	console.log('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";');
