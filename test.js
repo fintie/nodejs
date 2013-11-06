@@ -35,7 +35,7 @@ app.get('/api', function (req, res) {
 app.get('/', function (req, res) {
 	res.render('index.ejs');
 	res.end();
-});
+})
 
 app.get('/internal' , function (req, res) {
 	res.render('internal.ejs');
@@ -374,7 +374,7 @@ app.post('/insertuser', function (req, res){
 		}); 
 });
 
-app.post('/choosedate', function (req, res){
+app.post('/choosedates', function (req, res){
 	date = req.body.reference;
 	console.log('Date selected:' + date);
 	console.log('SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";');
