@@ -394,7 +394,7 @@ app.post('/choosedate', function (req, res){
 });
 
 app.post('/checklist', function (req,res){
-	connection.query('SELECT MilestoneID FROM activity WHERE Producer="nick" AND Status= "Excuted"')
-})
+	connection.query('SELECT MilestoneID FROM activity WHERE Producer="nick" AND Status= "Excuted"');
+});
 // Launch server
 app.listen(1212);
