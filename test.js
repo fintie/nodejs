@@ -197,13 +197,6 @@ app.post('/milestone', function (req, res){
 	});
 });
 
-/*
-app.post('/existingmenu', function (req. res){
-	var output = '<input type="submit" value="Vary" onclick="http://127.0.0.1:1212/milestone ">';
-	res.end();
-	
-});
-*/
 
 
 app.post('/display', function (req, res){
