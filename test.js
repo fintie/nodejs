@@ -397,7 +397,7 @@ app.post('/choosedate', function (req, res){
 	
 });
 
-app.post('/checklist', function (req,res){
+app.get('/checklist', function (req,res){
 	connection.query("SELECT MilestoneID FROM activity WHERE Producer='nick' AND Status= 'Excuted';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
