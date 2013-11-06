@@ -300,11 +300,12 @@ app.post('/updateactivity', function (req, res){
 	//var classification = new Array();
 	var output = '<html><body><form name="input" action="/regenerate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
+	output += 'Estimate ID:' + estimateid + '<br>';
+	output += '<br>Producer:<select name="producer"><option>Choice</option></select>';
+	output += '<br>Pricing method:<input type="radio" name="pricingmethod" value="proportion">Proportion<input type="radio" name="pricingmethod" value="rate">Rate<input type="radio" name="pricingmethod" value="manual">Manual';
+	output += '<br>Price: <input type="text" name="price">';
 	for (var i = 0; i < number; i++)
 	{
-		output += '<br>Producer:<select name="producer"><option>Choice</option></select>';
-		output += '<br>Pricing method:<input type="radio" name="pricingmethod" value="proportion">Proportion<input type="radio" name="pricingmethod" value="rate">Rate<input type="radio" name="pricingmethod" value="manual">Manual';
-		output += '<br>Price: <input type="text" name="price">';
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
 		output += '<option value="consulting">Consulting</option><option value="scoping">Scoping</option><option value="design">Design</option>';
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
