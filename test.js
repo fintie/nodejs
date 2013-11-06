@@ -412,8 +412,8 @@ app.get('/checklist', function (req,res){
 app.post('/displaymilestone', function(req,res){
 
 	milestoneid = req.body.milestone;
-	console.log('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";');
-	connection.query('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";');
+	connection.query('SELECT e.CustomerID, a.EstimateID, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'";', function (error, rows, fields) {
 			customerid = rows[0].CustomerID;
 			estimateid = rows[0].EstimateID;
 			producer = rows[0].Producer;
@@ -421,6 +421,7 @@ app.post('/displaymilestone', function(req,res){
 			hours = rows[0].Hours;
 			trigger = rows[0].Trigger;
 			deadline = rows[0].Deadline;
+			proportion = rows[0].proportion;
 			
 
 			console.log('display all details on the page');
