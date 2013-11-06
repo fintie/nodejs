@@ -245,8 +245,8 @@ app.post('/generate', function (req, res){
 
 		for (var i=0; i<number; i++){
 			//insert milestone
-			console.log('INSERT INTO activity (EstimateID, Classification, Hours, Deadline) values ("'+ eid + '","' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, Classification, Hours, Deadline) values ("'+ eid + '","' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+			console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ eid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ eid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
 
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + eid +"'" +');');
 		
@@ -320,6 +320,10 @@ app.post('/updateactivity', function (req, res){
 
 });
 
+app.post('/regenerate', function (req, res){
+
+});
+
 app.get('/selectappestimate', function (req, res){
 	connection.query("SELECT e.ID FROM estimates e, milestones m, activity a WHERE e.ID = m.EstimateID AND m.ID = a.MilestoneID AND a.Status = 'Published';", function (error, rows, fields) {
 		var output = '<html><head></head><body><form name="input" action="/customerapproval" method="post"><select name="estimate">';
@@ -388,5 +392,9 @@ app.post('/choosedate', function (req, res){
 		});
 	
 });
+
+app.post('/checklist', function (req,res){
+	connection.query('SELECT MilestoneID FROM activity WHERE Producer="nick" AND Status= "Excuted"')
+})
 // Launch server
 app.listen(1212);
