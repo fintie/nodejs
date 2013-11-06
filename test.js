@@ -421,7 +421,7 @@ app.post('/displaymilestone', function(req,res){
 			hours = rows[0].Hours;
 			trigger = rows[0].Trigger;
 			deadline = rows[0].Deadline;
-			proportion = rows[0].proportion;
+			proportion = rows[0].Proportion;
 			
 
 			console.log('display all details on the page');
