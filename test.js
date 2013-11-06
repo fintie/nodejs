@@ -178,7 +178,6 @@ app.post('/insertestimate', function (req, res){
 		//res.cookie(customerid);
 		res.render('milestone.ejs');
 		res.end();
-		//res.end('estimate created<br><a href="http://localhost/nodejs/index.html">Home</a>');
 	});
 });
 
