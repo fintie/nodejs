@@ -349,7 +349,7 @@ app.post('/updateactivity', function (req, res){
 		output += '<br>Consideration: <input type="text" name="consideration"><br>';
 		//output += '<br>Resource:<select name="resource"><option value="10">10</option><option value="20">20</option></select><br>';
 	}
-	output += '<br><input type="submit" value="Regenerate"><input type="button" value="Cancel"></form></body></html>';
+	output += '<br><input type="submit" value="Regenerate"><input type="button" value="Cancel" onclick="window.location = '/' "></form></body></html>';
 
 	res.end(output);
 
