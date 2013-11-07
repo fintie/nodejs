@@ -330,10 +330,12 @@ app.post('/generateexisting', function(req, res){
 
 app.post('/updateactivity', function (req, res){
 
+	/*
 	if(customerid == "")
 	{
 		customerid = req.body.code;
 	}	
+	*/
 	//var classification = new Array();
 	var output = '<html><body><form name="input" action="/regenerate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
