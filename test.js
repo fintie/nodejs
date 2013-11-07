@@ -295,7 +295,7 @@ app.post('/updateactivity', function (req, res){
 	output += 'Estimate ID:' + estimateid + '<br>';
 	output += '<br>Producer:<select name="producer"><option>Choice</option></select>';
 	output += '<br>Pricing method:<input type="radio" name="pricingmethod" value="proportion">Proportion<input type="radio" name="pricingmethod" value="rate">Rate<input type="radio" name="pricingmethod" value="manual">Manual';
-	output += '<br>Price: <input type="text" name="price">';
+	output += '<br>Price: <input type="text" name="price"><br><br>';
 	for (var i = 0; i < number; i++)
 	{
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
@@ -326,8 +326,8 @@ app.post('/regenerate', function (req, res){
 
 	for (var i=0; i<number; i++){
 		
-		console.log('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
-		connection.query('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		console.log('INSERT INTO activity (EstimateID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		connection.query('INSERT INTO activity (EstimateID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
 
 
 	}	
