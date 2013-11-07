@@ -375,10 +375,14 @@ app.post('/regenerate', function (req, res){
 	connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 	
 	for (var i=0; i<number; i++){
-		
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + consideration[i] +'");');
-
+		if(number==1){
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification +'","' + hours + '","' + trigger + '","' + deadline + '","' + consideration +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification +'","' + hours + '","' + trigger + '","'  + deadline + '","' + consideration +'");');
+		}
+		else{
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + consideration[i] +'");');
+		}
 
 	}	
 	res.render('display.ejs');
