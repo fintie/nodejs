@@ -181,11 +181,12 @@ app.post('/insertestimate', function (req, res){
 	});
 });
 
+/*
+
 app.post('/milestone', function (req, res){
 	console.log("POST: ");
 
 	estimateid = req.body.estimate;
-	//code = req.body.code;
 
 	connection.query("SELECT Classification, Billingrate FROM milestones WHERE EstimateID = 80;" , function (error, rows, fields) { 
 		classification = rows[0].Classification;
@@ -195,7 +196,7 @@ app.post('/milestone', function (req, res){
 		res.end();
 	});
 });
-
+*/
 
 
 app.post('/display', function (req, res){
@@ -235,11 +236,18 @@ app.post('/generate', function (req, res){
 		
 
 
-		for (var i=0; i<number; i++){
-			//insert milestone
-			console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
 
+		for (var i=0; i<number; i++){
+			if(number==1){
+				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
+				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
+
+			}
+			else{
+				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+			}
+			//insert milestone
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
 			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
