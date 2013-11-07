@@ -371,8 +371,8 @@ app.post('/regenerate', function (req, res){
 	price = req.body.price;
 	consideration = req.body.consideration;
 
-	console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
-	connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
+	console.log('UPDATE estimates SET method= "' + method +'", price="' + price + '") WHERE ID = "' + estimateid + '";');
+	connection.query('UPDATE estimates SET method= "' + method +'", price="' + price + '") WHERE ID = "' + estimateid + '";');
 	
 	for (var i=0; i<number; i++){
 		if(number==1){
