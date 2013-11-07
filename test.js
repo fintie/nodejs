@@ -265,7 +265,7 @@ app.post('/publish', function (req, res){
 
 
 	}	
-	res.render('display.ejs');
+	res.render('internal.ejs');
 	res.end();
 });
 
