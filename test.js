@@ -263,10 +263,11 @@ app.post('/generateexisting', function(req, res){
 
 	estimateid = req.body.estimate;
 
-	console.log('SELECT COUNT(m.ID) as counts FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";');
-	connection.query('SELECT COUNT(m.ID) as counts FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";', function (error, rows, fields) {
+	console.log('SELECT COUNT(m.ID) as counts, m.ID FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";');
+	connection.query('SELECT COUNT(m.ID) as counts, m.ID FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";', function (error, rows, fields) {
 
 			number = rows[0].counts;
+			milestoneid = rows.ID;
 	});
 
 	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
@@ -326,8 +327,8 @@ app.post('/regenerate', function (req, res){
 
 	for (var i=0; i<number; i++){
 		
-		console.log('INSERT INTO activity (EstimateID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
-		connection.query('INSERT INTO activity (EstimateID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
 
 
 	}	
