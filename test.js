@@ -257,10 +257,6 @@ app.post('/generate', function (req, res){
 
 app.post('/publish', function (req, res){
 	
-	classification = req.body.classification;
-	hours = req.body.hours;
-	trigger = req.body.trigger;
-	deadline = req.body.deadline;
 	
 	for (var i=0; i<number; i++){
 		
