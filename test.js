@@ -231,20 +231,20 @@ app.post('/generate', function (req, res){
 	connection.query('INSERT INTO estimates ( CustomerID ) values (' + "'" + customerid +"'"  +');', function (req, res) {
 	//connection.query('INSERT INTO estimates ( CustomerID ) values (' + "'" + customerid +"'"  +');');
 		
-		eid = res.insertId;
+		estimateid = res.insertId;
 		
 
 
 		for (var i=0; i<number; i++){
 			//insert milestone
-			console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ eid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ eid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+			console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
 
-			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + eid +"'" +');');
+			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
-			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + eid +"'" +');', function (req, res) {
-				mid = res.insertId;
-				connection.query('UPDATE activity SET MilestoneID = "' + mid  +'" WHERE EstimateID = "' + eid + '";');
+			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
+				milestoneid = res.insertId;
+				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '";');
 			});
 		}
 			
@@ -318,7 +318,22 @@ app.post('/updateactivity', function (req, res){
 });
 
 app.post('/regenerate', function (req, res){
+	
+	classification = req.body.classification;
+	hours = req.body.hours;
+	trigger = req.body.trigger;
+	deadline = req.body.deadline;	
 
+	for (var i=0; i<number; i++){
+		
+		console.log('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		connection.query('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+
+
+	}	
+	res.render('display.ejs');
+	res.end();
+	
 });
 
 app.get('/selectappestimate', function (req, res){
