@@ -449,7 +449,7 @@ app.post('/choosedate', function (req, res){
 	console.log('Date selected:' + date);
 	console.log('SELECT ID FROM milestones;');
 	connection.query('SELECT ID FROM milestones;', function (error, rows, fields) {
-		var output = '<html><head></head><body><form name="input" action="/savetomilestone" method="post">Milestone: <select name="milestone">';
+		var output = '<html><head></head><body><form name="input" action="/updatetime" method="post">Milestone: <select name="milestone">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
 		}		
@@ -469,6 +469,18 @@ app.post('/choosedate', function (req, res){
 			res.end();
 		});
 	*/
+	
+});
+
+app.post('/updatetime', function (req, res){
+	
+	milestoneid = req.body.milestone;
+	finished = req.body.finished;
+	time = req.body.time;
+	
+	console.log('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","' + finished +'","' + time + '","' + date +'");');
+	connection.query('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","' + finished +'","' + time + '","' + date +'");');
+
 	
 });
 
