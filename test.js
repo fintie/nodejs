@@ -337,7 +337,7 @@ app.post('/updateactivity', function (req, res){
 	output += 'Customer ID:' + customerid + '<br>'; 
 	output += 'Estimate ID:' + estimateid + '<br>';
 	output += '<br>Producer:<select name="producer"><option>Choice</option></select>';
-	output += '<br>Pricing method:<input type="radio" name="pricingmethod" value="proportion">Proportion<input type="radio" name="pricingmethod" value="rate">Rate<input type="radio" name="pricingmethod" value="manual">Manual';
+	output += '<br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="pricingmethod" value="rate">Rate<input type="radio" name="pricingmethod" value="manual">Manual';
 	output += '<br>Price: <input type="text" name="price"><br><br>';
 	for (var i = 0; i < number; i++)
 	{
@@ -366,7 +366,12 @@ app.post('/regenerate', function (req, res){
 	hours = req.body.hours;
 	trigger = req.body.trigger;
 	deadline = req.body.deadline;	
+	method = req.body.deadline;
+	price = req.body.deadline;
 
+	console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
+	connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
+	
 	for (var i=0; i<number; i++){
 		
 		console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
