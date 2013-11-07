@@ -256,7 +256,15 @@ app.post('/generate', function (req, res){
 });
 
 app.post('/publish', function (req, res){
-	connection.query('');
+	for (var i=0; i<number; i++){
+		
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'",","Published",' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'",","Published"' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+
+
+	}	
+	res.render('display.ejs');
+	res.end();
 });
 
 app.post('/generateexisting', function(req, res){
