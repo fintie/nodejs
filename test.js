@@ -235,17 +235,18 @@ app.post('/generate', function (req, res){
 		estimateid = res.insertId;
 		
 
-
+		console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
+		connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 
 		for (var i=0; i<number; i++){
 			if(number==1){
-				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
-				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
+				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline, Proportion) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline + '","' + consideration +'");');
+				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline, Proportion) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline + '","' + consideration +'");');
 
 			}
 			else{
-				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline, Proportion) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
+				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline, Proportion) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
 			}
 			//insert milestone
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
@@ -268,13 +269,13 @@ app.post('/publish', function (req, res){
 	console.log(classification);
 	for (var i=0; i<number; i++){
 		if(number==1){
-			console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification +'","' + hours + '","' + trigger + '","' + deadline +'");');
-			connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification +'","' + hours + '","' + trigger + '","' + deadline +'");');
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification +'","' + hours + '","' + trigger + '","' + deadline + '","' + consideration +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification +'","' + hours + '","' + trigger + '","' + deadline + '","' + consideration +'");');
 
 		}
 		else{
-			console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","Published","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
 		}
 
 	}	
@@ -368,14 +369,15 @@ app.post('/regenerate', function (req, res){
 	deadline = req.body.deadline;	
 	method = req.body.deadline;
 	price = req.body.deadline;
+	consideration = req.body.deadline;
 
 	console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 	connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 	
 	for (var i=0; i<number; i++){
 		
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + consideration[i] +'");');
 
 
 	}	
