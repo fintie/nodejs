@@ -268,7 +268,7 @@ app.post('/generateexisting', function(req, res){
 			
 			number = rows[0].counts;
 			for(var i=0; i<rows.length;i++){
-				milestoneid[i] =rows[i].ID;				
+				var milestoneid[i] =rows[i].ID;				
 			}
 	});
 
