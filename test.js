@@ -336,6 +336,7 @@ app.post('/updateactivity', function (req, res){
 		customerid = req.body.code;
 	}	
 	*/
+	console.log(customerid);
 	//var classification = new Array();
 	var output = '<html><body><form name="input" action="/regenerate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
