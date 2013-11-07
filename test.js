@@ -477,10 +477,16 @@ app.post('/updatetime', function (req, res){
 	milestoneid = req.body.milestone;
 	finished = req.body.finished;
 	time = req.body.time;
+	if(finished=='on')
+	{
+		finished = 'Executed';
+	}
 	
 	console.log('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","' + finished +'","' + time + '","' + date +'");');
 	connection.query('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","' + finished +'","' + time + '","' + date +'");');
 
+	res.render(internal.ejs);
+	res.end();
 	
 });
 
