@@ -267,7 +267,9 @@ app.post('/generateexisting', function(req, res){
 	connection.query('SELECT COUNT(m.ID) as counts, m.ID FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";', function (error, rows, fields) {
 
 			number = rows[0].counts;
-			milestoneid = rows.ID;
+			for(var i=0; i<rows.length;i++){
+				milestoneid = rows[i].ID;				
+			}
 	});
 
 	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
