@@ -449,10 +449,13 @@ app.post('/choosedate', function (req, res){
 	console.log('Date selected:' + date);
 	console.log('SELECT ID FROM milestones;');
 	connection.query('SELECT ID FROM milestones;', function (error, rows, fields) {
-		var output = '<html><head></head><body><form name="input" action="/savetomilestone" method="post"><select name="milestone">';
+		var output = '<html><head></head><body><form name="input" action="/savetomilestone" method="post">Milestone: <select name="milestone">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
 		}		
+		output += '</select><br>';
+		output += '<input type="checkbox" name="finished"> Finished	<br>Time:	<input type="text" name="time">	<br>';
+		output += '<input type="submit" value="Submit">	<input type="button" value="Cancel" onclick="window.location = \'/\' " />';
 		res.end(output);
 	});
 	/*
