@@ -284,15 +284,16 @@ app.post('/generateexisting', function(req, res){
 
 	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
 	connection.query('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
-	/*		
+			
 			customerid = rows[0].CustomerID;
 			classification = rows[0].Classification;
 			hours = rows[0].Hours;
 			trigger = rows[0].Trigger;
 			deadline = rows[0].Deadline;
+			producer = 'user';
 			
-	*/
-		producer = 'user';
+	
+	/*
 		var customerid = [];
 		var classification = [];
 		var hours = [];
@@ -306,6 +307,7 @@ app.post('/generateexisting', function(req, res){
 			deadline.push(rows[i].Deadline);
 			
 		}
+	*/
 			res.render('display.ejs');
 			res.end();
 	});
