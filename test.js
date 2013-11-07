@@ -338,7 +338,7 @@ app.post('/updateactivity', function (req, res){
 	output += 'Customer ID:' + customerid + '<br>'; 
 	output += 'Estimate ID:' + estimateid + '<br>';
 	output += '<br>Producer:<select name="producer"><option>Choice</option></select>';
-	output += '<br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="pricingmethod" value="rate">Rate<input type="radio" name="pricingmethod" value="manual">Manual';
+	output += '<br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
 	output += '<br>Price: <input type="text" name="price"><br><br>';
 	for (var i = 0; i < number; i++)
 	{
@@ -447,6 +447,15 @@ app.post('/insertuser', function (req, res){
 app.post('/choosedate', function (req, res){
 	date = req.body.reference;
 	console.log('Date selected:' + date);
+	console.log('SELECT ID FROM milestones;');
+	connection.query('SELECT ID FROM milestones;', function (error, rows, fields) {
+		var output = '<html><head></head><body><form name="input" action="/savetomilestone" method="post"><select name="milestone">';
+		for (var i in rows) {
+			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
+		}		
+		res.end(output);
+	});
+	/*
 	console.log('SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";');
 	connection.query('SELECT MilestoneID, Classification, Hours FROM activity WHERE Reference="'+ date +'";', function (error, rows, fields) {
 			milestoneid = rows[0].MilestoneID;
@@ -456,6 +465,7 @@ app.post('/choosedate', function (req, res){
 			res.render('assigntime.ejs');
 			res.end();
 		});
+	*/
 	
 });
 
