@@ -326,8 +326,8 @@ app.post('/regenerate', function (req, res){
 
 	for (var i=0; i<number; i++){
 		
-		console.log('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
-		connection.query('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		console.log('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
+		connection.query('INSERT INTO activity (EstimateID, Classification, Hours, Trigger, Deadline) values ("'+ estimateid +'","' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] +'");');
 
 
 	}	
