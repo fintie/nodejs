@@ -367,9 +367,9 @@ app.post('/regenerate', function (req, res){
 	hours = req.body.hours;
 	trigger = req.body.trigger;
 	deadline = req.body.deadline;	
-	method = req.body.deadline;
-	price = req.body.deadline;
-	consideration = req.body.deadline;
+	method = req.body.method;
+	price = req.body.price;
+	consideration = req.body.consideration;
 
 	console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 	connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
