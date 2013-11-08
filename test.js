@@ -235,10 +235,10 @@ app.post('/generate', function (req, res){
 		
 		estimateid = res.insertId;
 		
-
+/*
 		console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 		connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
-
+*/
 		for (var i=0; i<number; i++){
 			if(number==1){
 				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
