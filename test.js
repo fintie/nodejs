@@ -333,7 +333,7 @@ app.post('/updateactivity', function (req, res){
 
 
 	customerid = req.body.code;
-	estimateid = req.body.estimate;
+	//estimateid = req.body.estimate;
 	console.log(customerid);
 	//var classification = new Array();
 	var output = '<html><body><form name="input" action="/regenerate" method="post">';
