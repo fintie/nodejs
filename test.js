@@ -541,20 +541,28 @@ app.post('/displaymilestone', function(req,res){
 app.post('/updatestatus', function(req,res){
 	status = req.body.status;
 	if(status=='satisfactory'){
-			console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
-			connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
+		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
+		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
+		res.render('internal.ejs');
+		res.end();
 	}
 	if(status=='unsatisfactory'){
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
 		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
+		res.render('internal.ejs');
+		res.end();
 	}
 	if(status=='complete'){
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Complete");');
 		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Complete");');
+		res.render('internal.ejs');
+		res.end();
 	}
 	if(status=='incomplete'){
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Incomplete");');
 		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Incomplete");');
+		res.render('internal.ejs');
+		res.end();
 	}
 	if(status=='invoiced'){
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Invoiced");');
@@ -574,13 +582,11 @@ app.post('/updatestatus', function(req,res){
 			if(method=='manual'){
 				milestoneprice = consideration;
 			}
+			res.render("printinvoice.ejs");
+			res.end();
 		});
-		res.render("printinvoice.ejs");
-		res.end();
 	}
 
-	res.render('internal.ejs');
-	res.end();
 });
 
 app.get('/selectchecked', function (req,res){
