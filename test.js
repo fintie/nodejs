@@ -574,9 +574,9 @@ app.post('/updatestatus', function(req,res){
 			if(method=='manual'){
 				milestoneprice = consideration;
 			}
-			res.render("printinvoice.ejs");
-			res.end();
 		});
+		res.render("printinvoice.ejs");
+		res.end();
 	}
 
 	res.render('internal.ejs');
