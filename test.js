@@ -156,7 +156,7 @@ app.post('/milestonepage', function (req, res){
 		output += '<br>Deadline: <input type="text" name="deadline"><br>';
 		//output += '<br>Resource:<select name="resource"><option value="10">10</option><option value="20">20</option></select><br>';
 	}
-	output += '<br><input type="submit" value="Generate"><input type="button" value="Cancel"></form></body></html>';
+	output += '<br><input type="submit" value="Generate"><input type="button" value="Cancel" onclick="window.location = \'/selectcustomer\' "></form></body></html>';
 
 	res.end(output);
 
