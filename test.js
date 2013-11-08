@@ -529,5 +529,20 @@ app.post('/displaymilestone', function(req,res){
 
 });
 
+app.post('/updateexcuted', function(req,res){
+	status = req.body.status;
+	if(status=='satisfactory'){
+			console.log('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Completed","' + time + '","' + date +'");');
+			connection.query('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Completed","' + time + '","' + date +'");');
+	}
+	else{
+		console.log('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Approved","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Approved","' + time + '","' + date +'");');
+	}
+
+	res.render('internal.ejs');
+	res.end();
+});
+
 // Launch server
 app.listen(1212);
