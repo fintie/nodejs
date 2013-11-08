@@ -297,15 +297,15 @@ app.post('/generateexisting', function(req, res){
 			}
 	});
 
-	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Consideration FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
-	connection.query('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Consideration FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
+	connection.query('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
 			
 			customerid = rows[0].CustomerID;
 			classification = rows[0].Classification;
 			hours = rows[0].Hours;
 			trigger = rows[0].Trigger;
 			deadline = rows[0].Deadline;
-			consideration = rows[0].Consideration;
+			consideration = rows[0].Proportion;
 			producer = 'user';
 			
 	
