@@ -532,12 +532,12 @@ app.post('/displaymilestone', function(req,res){
 app.post('/updateexcuted', function(req,res){
 	status = req.body.status;
 	if(status=='satisfactory'){
-			console.log('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Completed","' + time + '","' + date +'");');
-			connection.query('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Completed","' + time + '","' + date +'");');
+			console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Completed");');
+			connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Completed");');
 	}
 	else{
-		console.log('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Approved","' + time + '","' + date +'");');
-		connection.query('INSERT INTO activity (MilestoneID, Status, Time, Reference) values ("' + milestoneid +'","Approved","' + time + '","' + date +'");');
+		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
+		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
 	}
 
 	res.render('internal.ejs');
