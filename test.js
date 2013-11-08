@@ -532,6 +532,25 @@ app.post('/displaymilestone', function(req,res){
 			if(status=='Complete'){
 				res.render('invoicepage.ejs');
 			}
+			if(status=='Invoiced'){
+				connection.query('SELECT a.Proportion, a.Hours, e.method, e.price FROM activity a, estimates e WHERE MilestoneID= "' + milestoneid +'" AND a.EstimateID = e.ID ORDER BY a.ID DESC LIMIT 1;', function (error, rows, fields) {
+					consideration = rows[0].Proportion;
+					hours = rows[0].Hours;
+					method = rows[0].method;
+					price = rows[0].price;
+					
+					if(method=='proportion'){
+						milestoneprice = price * consideration;
+					}
+					if(method=='rate'){
+						milestoneprice = hours * consideration;
+					}
+					if(method=='manual'){
+						milestoneprice = consideration;
+					}
+					res.render('printinvoice.ejs');
+				});
+			}
 			res.end();	
 		});	
 	
@@ -612,6 +631,18 @@ app.get('/billing', function (req,res){
 			res.end(output);
 		});
 });	
+
+app.get('/customerinvoice', function (req,res){
+	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Invoiced';", function (error, rows, fields) {
+		var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
+		for (var i in rows) {
+			output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
+		}
+		output += '</select><input type="submit" value="Proceed"></form><form action="/external"><input type="submit" value="Back"></form></body></html>';
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.end(output);
+	});	
+});
 
 
 // Launch server
