@@ -535,15 +535,23 @@ app.post('/displaymilestone', function(req,res){
 
 });
 
-app.post('/updateexecuted', function(req,res){
+app.post('/updatestatus', function(req,res){
 	status = req.body.status;
 	if(status=='satisfactory'){
 			console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
 			connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
 	}
-	else{
+	if(status=='unsatisfactory'){
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
 		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
+	}
+	if(status=='complete'){
+		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Complete");');
+		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Complete");');
+	}
+	if(status=='incomplete'){
+		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Incomplete");');
+		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Incomplete");');
 	}
 
 	res.render('internal.ejs');
