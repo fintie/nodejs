@@ -532,8 +532,8 @@ app.post('/displaymilestone', function(req,res){
 app.post('/updateexecuted', function(req,res){
 	status = req.body.status;
 	if(status=='satisfactory'){
-			console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Completed");');
-			connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Completed");');
+			console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
+			connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Checked");');
 	}
 	else{
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Approved");');
@@ -543,6 +543,19 @@ app.post('/updateexecuted', function(req,res){
 	res.render('internal.ejs');
 	res.end();
 });
+
+app.get('/selectchecked', function (req,res){
+	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Checked';", function (error, rows, fields) {
+			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
+			for (var i in rows) {
+				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
+			}
+			output += '</select><input type="submit" value="Proceed"></form><form action="/external"><input type="submit" value="Back"></form></body></html>';
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.end(output);
+		});
+});	
+
 
 // Launch server
 app.listen(1212);
