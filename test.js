@@ -529,7 +529,7 @@ app.post('/displaymilestone', function(req,res){
 
 });
 
-app.post('/updateexcuted', function(req,res){
+app.post('/updateexecuted', function(req,res){
 	status = req.body.status;
 	if(status=='satisfactory'){
 			console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Completed");');
