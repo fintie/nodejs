@@ -526,8 +526,11 @@ app.post('/displaymilestone', function(req,res){
 			if(status=='Executed'){
 				res.render('checkliststatus.ejs');
 			}
-			else{
+			if(status=='Checked'){
 				res.render('completionpage.ejs');
+			}
+			if(status=='Complete'){
+				res.render('invoicepage.ejs');
 			}
 			res.end();	
 		});	
@@ -553,6 +556,10 @@ app.post('/updatestatus', function(req,res){
 		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Incomplete");');
 		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Incomplete");');
 	}
+	if(status=='invoice'){
+		console.log('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Invoice");');
+		connection.query('INSERT INTO activity (MilestoneID, Status) values ("' + milestoneid +'","Invoice");');
+	}
 
 	res.render('internal.ejs');
 	res.end();
@@ -565,6 +572,18 @@ app.get('/selectchecked', function (req,res){
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
 			}
 			output += '</select><input type="submit" value="Proceed"></form><form action="/external"><input type="submit" value="Back"></form></body></html>';
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.end(output);
+		});
+});	
+
+app.get('/billing', function (req,res){
+	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Completed';", function (error, rows, fields) {
+			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
+			for (var i in rows) {
+				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
+			}
+			output += '</select><input type="submit" value="Proceed"></form><form action="/estimatepage"><input type="submit" value="Back"></form></body></html>';
 			res.writeHead(200, {'Content-Type': 'text/html'});
 			res.end(output);
 		});
