@@ -521,7 +521,7 @@ app.post('/displaymilestone', function(req,res){
 			
 
 			console.log('display all details on the page');
-
+			console.log(status);
 			//res.cookie(hours,deadline,billingrate);
 			if(status=='Executed'){
 				res.render('checkliststatus.ejs');
