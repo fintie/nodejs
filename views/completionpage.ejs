@@ -1,0 +1,34 @@
+<html>
+<form name="input" action="/updateexecuted" method="post">
+Customer ID: <%= customerid %>
+<br>
+Estimate ID: <%= estimateid %>
+<br>
+Producer: <%= producer %>
+<br>
+Price method:
+<br>
+Classification: <%= classification %>
+<br>
+Hours: <%= hours %>
+<br>
+Trigger: <%= trigger %>
+<br>
+Deadline: <%= deadline %>
+<br>
+Consideration: <%= proportion %>
+<br>
+<select name="status">
+	<option value="complete">Complete</option>
+	<option value="incomplete">Incomplete</option>
+</select>	
+
+
+<input type="submit" value="Submit">
+
+</form>
+
+
+<input type="button" value="Back" onclick="window.location = '/selectchecked' " />
+
+</html>
