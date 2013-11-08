@@ -507,8 +507,8 @@ app.get('/checklist', function (req,res){
 app.post('/displaymilestone', function(req,res){
 
 	milestoneid = req.body.milestone;
-	console.log('SELECT e.CustomerID, a.EstimateID, a.Status, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'" ORDER BY ID DESC LIMIT 1;');
-	connection.query('SELECT e.CustomerID, a.EstimateID, a.Status, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'" ORDER BY ID DESC LIMIT 1;', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, a.EstimateID, a.Status, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'" ORDER BY a.ID DESC LIMIT 1;');
+	connection.query('SELECT e.CustomerID, a.EstimateID, a.Status, a.Producer, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.MilestoneID="'+ milestoneid +'" ORDER BY a.ID DESC LIMIT 1;', function (error, rows, fields) {
 			customerid = rows[0].CustomerID;
 			estimateid = rows[0].EstimateID;
 			producer = rows[0].Producer;
