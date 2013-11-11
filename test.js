@@ -240,21 +240,22 @@ app.post('/generate', function (req, res){
 		connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 */
 		for (var i=0; i<number; i++){
-			if(number==1){
-				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
-				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
 
-			}
-			else{
-				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-			}
 			//insert milestone
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
 			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
 				milestoneid = res.insertId;
-				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '";');
+				//connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '";');
+				if(number==1){
+					console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '", "' + milestoneid +'","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
+					connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '", "' + milestoneid +'", "Generated", "' + classification +'","' + hours + '","' + deadline +'");');
+
+				}
+				else{
+					console.log('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '", "' + milestoneid +'", "Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+					connection.query('INSERT INTO activity (EstimateID, MilestoneID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '", "' + milestoneid +'", "Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+				}
 			});
 		}
 			
