@@ -253,7 +253,7 @@ app.post('/generate', function (req, res){
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
 			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
-				if(milestoneid == ""){
+				if(milestoneid === ""){
 					milestoneid = res.insertId;
 				}
 				else{
