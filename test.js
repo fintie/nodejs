@@ -252,8 +252,8 @@ app.post('/generate', function (req, res){
 			//insert milestone
 			console.log(number);
 			console.log(i);
-			console.log(limit);
 			limit = number - i;
+			console.log(limit);
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
 			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
