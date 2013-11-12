@@ -254,9 +254,13 @@ app.post('/generate', function (req, res){
 		
 			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
 
-					milestoneid = res.insertId;
+				milestoneid = res.insertId;
+					
+				limit = number - i;
 
-				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT 1;');
+				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT "' + limit + '";');
+					
+				
 			});
 		}
 			
