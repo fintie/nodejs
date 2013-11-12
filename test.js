@@ -494,13 +494,16 @@ app.post('/updatetime', function (req, res){
 	{
 		finished = 'Executed';
 	}
+	connection.query('SELECT EstimateID FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
+		
+		estimateid = rows[0].EstimateID;
 	
-	console.log('INSERT INTO activity (MilestoneID, DateTime, Status, Time, Reference) values ("' + milestoneid +'", NOW(), "' + finished +'","' + time + '","' + date +'");');
-	connection.query('INSERT INTO activity (MilestoneID, DateTime, Status, Time, Reference) values ("' + milestoneid +'", NOW(), "' + finished +'","' + time + '","' + date +'");');
+		console.log('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + time + '","' + date +'");');
 
-	res.render('internal.ejs');
-	res.end();
-	
+		res.render('internal.ejs');
+		res.end();
+	});
 });
 
 app.get('/checklist', function (req,res){
