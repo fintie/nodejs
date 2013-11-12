@@ -258,7 +258,7 @@ app.post('/generate', function (req, res){
 					
 				limit = number - i;
 
-				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT "' + limit + '";');
+				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
 					
 				
 			});
