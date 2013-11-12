@@ -239,6 +239,7 @@ app.post('/generate', function (req, res){
 		console.log('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 		connection.query('INSERT INTO estimates (method, price) VALUES ("' + method +'","' + price + '") WHERE ID = "' + estimateid + '";');
 */
+		limit = number
 		for (var i=0; i<number; i++){
 			if(number==1){
 				console.log('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification +'","' + hours + '","' + deadline +'");');
@@ -257,13 +258,11 @@ app.post('/generate', function (req, res){
 				milestoneid = res.insertId;
 					
 
-				console.log(number);
-				console.log(i);
-				limit = number - i;
 				console.log(limit);
 				
 				console.log('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
 				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
+				limit--;
 					
 				
 			});
