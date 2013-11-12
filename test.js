@@ -250,13 +250,14 @@ app.post('/generate', function (req, res){
 				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
 			}
 			//insert milestone
+			limit = number - i;
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
 			connection.query('INSERT INTO milestones (EstimateID) values (' + "'" + estimateid +"'" +');', function (req, res) {
 
 				milestoneid = res.insertId;
 					
-				limit = number - i;
+				
 				console.log('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
 				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
 					
