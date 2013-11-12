@@ -250,6 +250,9 @@ app.post('/generate', function (req, res){
 				connection.query('INSERT INTO activity (EstimateID, Status, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
 			}
 			//insert milestone
+			console.log(number);
+			console.log(i);
+			console.log(limit);
 			limit = number - i;
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
 		
