@@ -507,7 +507,7 @@ app.post('/updatetime', function (req, res){
 });
 
 app.get('/checklist', function (req,res){
-	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Executed' ORDER BY ID DESC LIMIT 1;", function (error, rows, fields) {
+	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Executed';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
