@@ -573,33 +573,35 @@ app.post('/displaymilestone', function(req,res){
 
 app.post('/updatestatus', function(req,res){
 	status = req.body.status;
+	connection.query('SELECT EstimateID FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
+		estimateid = rows[0].EstimateID;
 	if(status=='satisfactory'){
-		console.log('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Checked");');
-		connection.query('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Checked");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Checked");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Checked");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='unsatisfactory'){
-		console.log('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Approved");');
-		connection.query('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Approved");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Approved");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Approved");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='complete'){
-		console.log('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Complete");');
-		connection.query('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Complete");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Complete");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Complete");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='incomplete'){
-		console.log('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Incomplete");');
-		connection.query('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Incomplete");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='invoiced'){
-		console.log('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Invoiced");');
-		connection.query('INSERT INTO activity (MilestoneID, DateTime, Status) values ("' + milestoneid +'", NOW(), "Invoiced");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
 		connection.query('SELECT a.Proportion, a.Hours, e.method, e.price FROM activity a, estimates e WHERE MilestoneID= "' + milestoneid +'" AND a.EstimateID = e.ID ORDER BY a.ID DESC LIMIT 1;', function (error, rows, fields) {
 			consideration = rows[0].Proportion;
 			hours = rows[0].Hours;
@@ -618,6 +620,7 @@ app.post('/updatestatus', function(req,res){
 			res.render("printinvoice.ejs");
 			res.end();
 		});
+	}
 	}
 
 });
