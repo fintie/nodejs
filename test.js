@@ -603,9 +603,7 @@ app.post('/updatestatus', function(req,res){
 		res.end();
 	}
 	if(status=='invoiced'){
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
-		connection.query('SELECT a.Proportion, a.Hours, e.method, e.price FROM activity a, estimates e WHERE a.ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND MilestoneID= "' + milestoneid +'" AND a.EstimateID = e.ID;', function (error, rows, fields) {
+		connection.query('SELECT a.Proportion, a.Hours, e.method, e.price FROM activity a, estimates e WHERE a.ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND a.MilestoneID= "' + milestoneid +'" AND a.EstimateID = e.ID;', function (error, rows, fields) {
 			consideration = rows[0].Proportion;
 			hours = rows[0].Hours;
 			method = rows[0].method;
@@ -626,6 +624,8 @@ app.post('/updatestatus', function(req,res){
 			res.render("printinvoice.ejs");
 			res.end();
 		});
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
 	}
 	});
 
