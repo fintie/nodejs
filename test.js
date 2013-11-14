@@ -623,7 +623,7 @@ app.post('/updatestatus', function(req,res){
 });
 
 app.get('/selectchecked', function (req,res){
-	connection.query("SELECT Distinct MilestoneID FROM activity WHERE Status= 'Checked';", function (error, rows, fields) {
+	connection.query("SELECT MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= 'Checked';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
@@ -635,7 +635,7 @@ app.get('/selectchecked', function (req,res){
 });	
 
 app.get('/billing', function (req,res){
-	connection.query("SELECT Distinct MilestoneID FROM activity WHERE Status= 'Complete';", function (error, rows, fields) {
+	connection.query("SELECT Distinct MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= 'Complete';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
@@ -647,7 +647,7 @@ app.get('/billing', function (req,res){
 });	
 
 app.get('/customerinvoice', function (req,res){
-	connection.query("SELECT Distinct MilestoneID FROM activity WHERE Status= 'Invoiced';", function (error, rows, fields) {
+	connection.query("SELECT Distinct MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= 'Invoiced';", function (error, rows, fields) {
 		var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
