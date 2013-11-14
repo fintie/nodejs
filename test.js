@@ -507,7 +507,7 @@ app.post('/updatetime', function (req, res){
 });
 
 app.get('/checklist', function (req,res){
-	connection.query("SELECT DISTINCT MilestoneID FROM activity WHERE Status= 'Executed';", function (error, rows, fields) {
+	connection.query("SELECT DISTINCT MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= 'Executed';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
