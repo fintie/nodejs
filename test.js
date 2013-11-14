@@ -403,7 +403,7 @@ app.post('/regenerate', function (req, res){
 });
 
 app.get('/selectappestimate', function (req, res){
-	connection.query("SELECT e.ID FROM estimates e, milestones m, activity a WHERE e.ID = m.EstimateID AND m.ID = a.MilestoneID AND a.Status = 'Published';", function (error, rows, fields) {
+	connection.query("SELECT DISTINCT e.ID FROM estimates e, milestones m, activity a WHERE e.ID = m.EstimateID AND m.ID = a.MilestoneID AND a.Status = 'Published';", function (error, rows, fields) {
 		var output = '<html><head></head><body><form name="input" action="/customerapproval" method="post"><select name="estimate">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
@@ -507,7 +507,7 @@ app.post('/updatetime', function (req, res){
 });
 
 app.get('/checklist', function (req,res){
-	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Executed';", function (error, rows, fields) {
+	connection.query("SELECT DISTINCT MilestoneID FROM activity WHERE Status= 'Executed';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
@@ -623,7 +623,7 @@ app.post('/updatestatus', function(req,res){
 });
 
 app.get('/selectchecked', function (req,res){
-	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Checked' ORDER BY ID DESC LIMIT 1;", function (error, rows, fields) {
+	connection.query("SELECT Distinct MilestoneID FROM activity WHERE Status= 'Checked';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
@@ -635,7 +635,7 @@ app.get('/selectchecked', function (req,res){
 });	
 
 app.get('/billing', function (req,res){
-	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Complete' ORDER BY ID DESC LIMIT 1;", function (error, rows, fields) {
+	connection.query("SELECT Distinct MilestoneID FROM activity WHERE Status= 'Complete';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
@@ -647,7 +647,7 @@ app.get('/billing', function (req,res){
 });	
 
 app.get('/customerinvoice', function (req,res){
-	connection.query("SELECT MilestoneID FROM activity WHERE Status= 'Invoiced' ORDER BY ID DESC LIMIT 1;", function (error, rows, fields) {
+	connection.query("SELECT Distinct MilestoneID FROM activity WHERE Status= 'Invoiced';", function (error, rows, fields) {
 		var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
