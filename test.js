@@ -552,7 +552,10 @@ app.post('/displaymilestone', function(req,res){
 					hours = rows[0].Hours;
 					method = rows[0].method;
 					price = rows[0].price;
-					
+					console.log('consideration: ' + consideration);
+					console.log('hours: ' + hours);
+					console.log('method: ' + method);
+					console.log('price: ' + price);
 					if(method=='proportion'){
 						milestoneprice = price * consideration;
 					}
