@@ -397,12 +397,12 @@ app.post('/regenerate', function (req, res){
 	
 	for (var i=0; i<number; i++){
 		if(number==1){
-			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification +'","' + hours + '","' + trigger + '","' + deadline + '","' + consideration +'");');
-			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification +'","' + hours + '","' + trigger + '","'  + deadline + '","' + consideration +'");');
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification +'","' + hours + '","' + trigger + '","' + deadline + '","' + producer + '","' + consideration +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification +'","' + hours + '","' + trigger + '","'  + deadline + '","' + producer + '","' + consideration +'");');
 		}
 		else{
-			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + consideration[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + consideration[i] +'");');
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + producer[i] + '","' + consideration[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + producer[i] + '","' + consideration[i] +'");');
 		}
 
 	}	
