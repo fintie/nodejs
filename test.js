@@ -357,7 +357,7 @@ app.post('/updateactivity', function (req, res){
 	output += 'Estimate ID:' + estimateid + '<br>';
 	output += '<br>Producer:<select name="producer">';
 	for (var n in rows) {
-		output += '<option>'+ rows[n].id +'</option>';
+		output += '<option>'+ rows[n].ID +'</option>';
 	}
 	output += '</select><br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
 	output += '<br>Price: <input type="text" name="price"><br><br>';
