@@ -349,7 +349,7 @@ app.post('/updateactivity', function (req, res){
 	
 	connection.query('SELECT ID FROM users WHERE Classification = "Production";', function (error, rows, fields) {
 		userid = rows[0].ID;
-	});
+
 	console.log(userid);
 	var output = '<html><body><form name="input" action="/regenerate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
@@ -375,7 +375,7 @@ app.post('/updateactivity', function (req, res){
 	output += '<br><input type="submit" value="Regenerate"><input type="button" value="Cancel" onclick="window.location = \'/\' "></form></body></html>';
 
 	res.end(output);
-
+	});
 });
 
 app.post('/regenerate', function (req, res){
