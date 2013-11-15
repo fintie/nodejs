@@ -348,14 +348,18 @@ app.post('/updateactivity', function (req, res){
 	//var classification = new Array();
 	
 	connection.query('SELECT ID FROM users WHERE Classification = "Production";', function (error, rows, fields) {
-		userid = rows[0].ID;
+		
+		
 
-	console.log(userid);
+	//console.log(userid);
 	var output = '<html><body><form name="input" action="/regenerate" method="post">';
 	output += 'Customer ID:' + customerid + '<br>'; 
 	output += 'Estimate ID:' + estimateid + '<br>';
-	output += '<br>Producer:<select name="producer"><option>'+ userid +'</option></select>';
-	output += '<br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
+	output += '<br>Producer:<select name="producer">';
+	for (var n in rows) {
+		output += '<option>'+ rows[n].id +'</option>';
+	}
+	output += '</select><br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
 	output += '<br>Price: <input type="text" name="price"><br><br>';
 	for (var i = 0; i < number; i++)
 	{
