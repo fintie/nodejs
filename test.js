@@ -401,8 +401,8 @@ app.post('/regenerate', function (req, res){
 			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification +'","' + hours + '","' + trigger + '","'  + deadline + '","' + producer + '","' + consideration +'");');
 		}
 		else{
-			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + producer[i] + '","' + consideration[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + producer[i] + '","' + consideration[i] +'");');
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + producer + '","' + consideration[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + producer + '","' + consideration[i] +'");');
 		}
 
 	}	
