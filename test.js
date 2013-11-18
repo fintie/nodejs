@@ -500,14 +500,20 @@ app.post('/updatetime', function (req, res){
 	finished = req.body.finished;
 	time = req.body.time;
 	if(finished=='on')
-	{
-		finished = 'Executed';
-	}
-	connection.query('SELECT EstimateID, Classification, Hours, Deadline, Proportion, Reference FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
+		{
+			finished = 'Executed';
+		}
+	else
+		{
+			finished = '';
+		}
+	console.log('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Reference FROM milestones WHERE ID="'+ milestoneid +'";');
+	connection.query('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Reference FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
 		
 		estimateid = rows[0].EstimateID;
 		classification = rows[0].Classification;
 		hours = rows[0].Hours;
+		trigger = rows[0].Trigger;
 		deadline = rows[0].Deadline;
 		proportion = rows[0].Proportion;
 		reference = rows[0].Reference;
