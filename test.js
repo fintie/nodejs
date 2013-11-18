@@ -242,13 +242,13 @@ app.post('/generate', function (req, res){
 		limit = number;
 		for (var i=0; i<number; i++){
 			if(number==1){
-				console.log('INSERT INTO activity (EstimateID, Status, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", NOW(), "' + classification +'","' + hours + '","' + deadline +'");');
-				connection.query('INSERT INTO activity (EstimateID, Status, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", NOW(), "' + classification +'","' + hours + '","' + deadline +'");');
+				console.log('INSERT INTO activity (EstimateID, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '", NOW(), "' + classification +'","' + hours + '","' + deadline +'");');
+				connection.query('INSERT INTO activity (EstimateID, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '", NOW(), "' + classification +'","' + hours + '","' + deadline +'");');
 
 			}
 			else{
-				console.log('INSERT INTO activity (EstimateID, Status, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", NOW(), "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
-				connection.query('INSERT INTO activity (EstimateID, Status, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '","Generated", NOW(), "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+				console.log('INSERT INTO activity (EstimateID, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '", NOW(), "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
+				connection.query('INSERT INTO activity (EstimateID, DateTime, Classification, Hours, Deadline) values ("'+ estimateid + '", NOW(), "' + classification[i] +'","' + hours[i] + '","' + deadline[i] +'");');
 			}
 			//insert milestone
 			console.log('INSERT INTO milestones ( EstimateID) values (' + "'" + estimateid +"'" +');');
@@ -503,12 +503,17 @@ app.post('/updatetime', function (req, res){
 	{
 		finished = 'Executed';
 	}
-	connection.query('SELECT EstimateID FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
+	connection.query('SELECT EstimateID, Classification, Hours, Deadline, Proportion, Reference FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
 		
 		estimateid = rows[0].EstimateID;
+		classification = rows[0].Classification;
+		hours = rows[0].Hours;
+		deadline = rows[0].Deadline;
+		proportion = rows[0].Proportion;
+		reference = rows[0].Reference;
 	
-		console.log('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + time + '","' + date +'");');
-		connection.query('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + time + '","' + date +'");');
+		console.log('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 
 		res.render('internal.ejs');
 		res.end();
@@ -516,7 +521,7 @@ app.post('/updatetime', function (req, res){
 });
 
 app.get('/checklist', function (req,res){
-	connection.query("SELECT DISTINCT MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= 'Executed';", function (error, rows, fields) {
+	connection.query("SELECT MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= 'Executed';", function (error, rows, fields) {
 			var output = '<html><head></head><body><form name="input" action="/displaymilestone" method="post"><select name="milestone">';
 			for (var i in rows) {
 				output += '<option value=' + rows[i].MilestoneID + '>' + rows[i].MilestoneID + '</option>';
@@ -585,29 +590,38 @@ app.post('/displaymilestone', function(req,res){
 
 app.post('/updatestatus', function(req,res){
 	status = req.body.status;
-	connection.query('SELECT EstimateID FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
-		estimateid = rows[0].EstimateID;
+	console.log('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference FROM milestones WHERE ID="'+ milestoneid +'";');
+	connection.query('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
+			estimateid = rows[0].EstimateID;
+			classification = rows[0].Classification;
+			hours = rows[0].Hours;
+			trigger = rows[0].Trigger;
+			deadline = rows[0].Deadline;
+			proportion = rows[0].Proportion;
+			resource = rows[0].Resource;
+			time = rows[0].Time;
+			date = rows[0].Reference;
 	if(status=='satisfactory'){
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Checked");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Checked");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Checked", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Checked", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='unsatisfactory'){
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Approved");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Approved");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Approved", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Approved", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='complete'){
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Complete");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Complete");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Complete", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Complete", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='incomplete'){
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 		res.render('internal.ejs');
 		res.end();
 	}
@@ -633,8 +647,8 @@ app.post('/updatestatus', function(req,res){
 			res.render("printinvoice.ejs");
 			res.end();
 		});
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Invoiced", ' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 	}
 	});
 
