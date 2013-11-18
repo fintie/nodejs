@@ -507,8 +507,8 @@ app.post('/updatetime', function (req, res){
 		{
 			finished = '';
 		}
-	console.log('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Reference FROM milestones WHERE ID="'+ milestoneid +'";');
-	connection.query('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Reference FROM milestones WHERE ID="'+ milestoneid +'";', function (error, rows, fields) {
+	console.log('SELECT EstimateID, Classification, Hours, `Trigger`, Deadline, Proportion FROM activity WHERE milestoneID="'+ milestoneid +'" ORDER BY ID DESC;');
+	connection.query('SELECT EstimateID, Classification, Hours, `Trigger`, Deadline, Proportion FROM activity WHERE milestoneID="'+ milestoneid +'" ORDER BY ID DESC;', function (error, rows, fields) {
 		
 		estimateid = rows[0].EstimateID;
 		classification = rows[0].Classification;
@@ -516,7 +516,6 @@ app.post('/updatetime', function (req, res){
 		trigger = rows[0].Trigger;
 		deadline = rows[0].Deadline;
 		proportion = rows[0].Proportion;
-		reference = rows[0].Reference;
 	
 		console.log('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 		connection.query('INSERT INTO activity (MilestoneID, EstimateID, DateTime, Status, Classification, Hours, Trigger, Deadline, Proportion, Time, Reference) values ("' + milestoneid + '", "'+ estimateid + '", NOW(), "' + finished +'","' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
