@@ -595,8 +595,8 @@ app.post('/displaymilestone', function(req,res){
 
 app.post('/updatestatus', function(req,res){
 	status = req.body.status;
-	console.log('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference FROM activity WHERE MilestoneID="'+ milestoneid +'" ORDER BY ID DESC;');
-	connection.query('SELECT EstimateID, Classification, Hours, Trigger, Deadline, Proportion, Resource, Time, Reference FROM activity WHERE MilestoneID="'+ milestoneid +'" ORDER BY ID DESC;', function (error, rows, fields) {
+	console.log('SELECT EstimateID, Classification, Hours, `Trigger`, Deadline, Proportion, Resource, Time, Reference FROM activity WHERE MilestoneID="'+ milestoneid +'" ORDER BY ID DESC;');
+	connection.query('SELECT EstimateID, Classification, Hours, `Trigger`, Deadline, Proportion, Resource, Time, Reference FROM activity WHERE MilestoneID="'+ milestoneid +'" ORDER BY ID DESC;', function (error, rows, fields) {
 			estimateid = rows[0].EstimateID;
 			classification = rows[0].Classification;
 			hours = rows[0].Hours;
