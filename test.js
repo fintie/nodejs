@@ -701,7 +701,7 @@ app.get('/customerinvoice', function (req,res){
 	});	
 });
 
-app.get('showactivities', function (req,res){
+app.get('/showactivities', function (req,res){
 	connection.query("SELECT * FROM activity;", function (error, rows, fields) {
 		output += '<html><table><tr>';
 		for(var i in rows){
