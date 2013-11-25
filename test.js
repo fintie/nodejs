@@ -705,7 +705,7 @@ app.get('/showactivities', function (req,res){
 	connection.query("SELECT * FROM activity;", function (error, rows, fields) {
 		var output = '<html><table><tr>';
 		for(var i in rows){
-			output += '<td>' + $rows[i] + '</td>';
+			output += '<td>' + rows[i] + '</td>';
 		}
 		output += '</tr></table></html>';
 		res.writeHead(200, {'Content-Type': 'text/html'});
