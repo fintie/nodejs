@@ -434,7 +434,7 @@ app.post('/customerapproval', function (req, res){
 
 app.post('/approve', function (req, res){
 	console.log(estimateid);
-	connection.query('SELECT * FROM activity WHERE EstimateID = '+ estimateid +' AND ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status = "Published";' , function (error, rows, fields) { 
+	connection.query('SELECT * FROM activity WHERE EstimateID = '+ estimateid +' AND ID = any (SELECT MAX(ID) FROM activity GROUP BY EstimateID) AND Status = "Published";' , function (error, rows, fields) { 
 		for (var i in rows) {
 			milestoneid = rows[i].MilestoneID;
 			classification = rows[i].Classification;
