@@ -435,19 +435,23 @@ app.post('/customerapproval', function (req, res){
 app.post('/approve', function (req, res){
 	console.log(estimateid);
 	connection.query('SELECT * FROM activity WHERE EstimateID = '+ estimateid +' ORDER BY ID DESC LIMIT 1;' , function (error, rows, fields) { 
-		milestoneid = rows[0].MilestoneID;
-		classification = rows[0].Classification;
-		hours = rows[0].Hours;
-		trigger = rows[0].Trigger;
-		deadline = rows[0].Deadline;
-		producer = rows[0].Producer;
-		proportion = rows[0].Proportion;
+		for (var i in rows) {
+			milestoneid = rows[i].MilestoneID;
+			classification = rows[i].Classification;
+			hours = rows[i].Hours;
+			trigger = rows[i].Trigger;
+			deadline = rows[i].Deadline;
+			producer = rows[i].Producer;
+			proportion = rows[i].Proportion;
 
-		console.log(milestoneid);
-		console.log('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );');
-		connection.query('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );', function (error, rows, fields) {
-			res.end( 'The estimate has been approved');
-		});		
+
+			//console.log(milestoneid);
+			console.log('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );');
+			connection.query('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );');
+		
+		}
+		res.render('internal.ejs');
+		res.end();
 		
 	});
 
