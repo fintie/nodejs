@@ -316,7 +316,7 @@ app.post('/generateexisting', function(req, res){
 			trigger = rows[0].Trigger;
 			deadline = rows[0].Deadline;
 			consideration = rows[0].Proportion;
-			producer = 'user';
+			producer = rows[0].Producer;
 			
 	
 	/*
@@ -388,6 +388,7 @@ app.post('/regenerate', function (req, res){
 	hours = req.body.hours;
 	trigger = req.body.trigger;
 	deadline = req.body.deadline;	
+	producer = req.body.producer;
 	method = req.body.method;
 	price = req.body.price;
 	consideration = req.body.consideration;
@@ -469,8 +470,8 @@ app.post('/insertuser', function (req, res){
 app.post('/choosedate', function (req, res){
 	date = req.body.reference;
 	console.log('Date selected:' + date);
-	console.log('SELECT ID FROM milestones;');
-	connection.query('SELECT ID FROM milestones;', function (error, rows, fields) {
+	console.log('SELECT MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= "Approved";');
+	connection.query('SELECT MilestoneID FROM activity WHERE ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status= "Approved";', function (error, rows, fields) {
 		var output = '<html><head></head><body><form name="input" action="/updatetime" method="post">Milestone: <select name="milestone">';
 		for (var i in rows) {
 			output += '<option value=' + rows[i].ID + '>' + rows[i].ID + '</option>';
@@ -505,7 +506,7 @@ app.post('/updatetime', function (req, res){
 		}
 	else
 		{
-			finished = '';
+			finished = 'Approved';
 		}
 	console.log('SELECT EstimateID, Classification, Hours, `Trigger`, Deadline, Proportion FROM activity WHERE milestoneID="'+ milestoneid +'" ORDER BY ID DESC;');
 	connection.query('SELECT EstimateID, Classification, Hours, `Trigger`, Deadline, Proportion FROM activity WHERE milestoneID="'+ milestoneid +'" ORDER BY ID DESC;', function (error, rows, fields) {
@@ -625,12 +626,13 @@ app.post('/updatestatus', function(req,res){
 		res.end();
 	}
 	if(status=='incomplete'){
-		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, `Trigger`, Deadline, Proportion, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete", "' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
-		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, `Trigger`, Deadline, Proportion, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Incomplete", "' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, `Trigger`, Deadline, Proportion, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Executed", "' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
+		connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Status, Classification, Hours, `Trigger`, Deadline, Proportion, Time, Reference) values ("' + estimateid +'", "' + milestoneid +'", NOW(), "Executed", "' + classification + '","' + hours + '","' + trigger + '","' + deadline + '","' + proportion + '","' + time + '","' + date +'");');
 		res.render('internal.ejs');
 		res.end();
 	}
 	if(status=='invoiced'){
+		console.log('SELECT a.Proportion, a.Hours, e.method, e.price FROM activity a, estimates e WHERE a.ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND a.MilestoneID= "' + milestoneid +'" AND a.EstimateID = e.ID;');
 		connection.query('SELECT a.Proportion, a.Hours, e.method, e.price FROM activity a, estimates e WHERE a.ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND a.MilestoneID= "' + milestoneid +'" AND a.EstimateID = e.ID;', function (error, rows, fields) {
 			consideration = rows[0].Proportion;
 			hours = rows[0].Hours;
