@@ -704,8 +704,8 @@ app.get('/customerinvoice', function (req,res){
 app.get('/showactivities', function (req,res){
 	connection.query("SELECT * FROM activity;", function (error, rows, fields) {
 		var output = '<html><table border="1">';
-		output += '<th><td>ID</td><td>estimateID</td><td>MilestoneID</td><td>DateTime</td><td>Status</td><td>Classification</td><td>Hours</td><td>Trigger</td>';
-		output += '<td>Deadline</td><td>Producer</td><td>Proportion</td><td>Resource</td><td>Time</td><td>Reference</td></th>';
+		output += '<tr><td>ID</td><td>estimateID</td><td>MilestoneID</td><td>DateTime</td><td>Status</td><td>Classification</td><td>Hours</td><td>Trigger</td>';
+		output += '<td>Deadline</td><td>Producer</td><td>Proportion</td><td>Resource</td><td>Time</td><td>Reference</td></tr>';
 		for(var i in rows){
 			output += '<tr><td>' + rows[i].ID + '</td>';
 			output += '<td>' + rows[i].EstimateID + '</td>';
