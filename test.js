@@ -434,7 +434,7 @@ app.post('/customerapproval', function (req, res){
 
 app.post('/approve', function (req, res){
 	console.log(estimateid);
-	connection.query('SELECT * FROM activity WHERE EstimateID = '+ estimateid +' AND Status = "Published";' , function (error, rows, fields) { 
+	connection.query('SELECT * FROM activity WHERE EstimateID = '+ estimateid +' AND ID = any (SELECT MAX(ID) FROM activity GROUP BY MilestoneID) AND Status = "Published";' , function (error, rows, fields) { 
 		for (var i in rows) {
 			milestoneid = rows[i].MilestoneID;
 			classification = rows[i].Classification;
@@ -446,8 +446,8 @@ app.post('/approve', function (req, res){
 
 
 			//console.log(milestoneid);
-			console.log('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );');
-			connection.query('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );');
+			console.log('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + trigger + '", "' + deadline + '", "' + producer + '", "' + proportion + '", "Approved" );');
+			connection.query('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + trigger + '", "' + deadline + '", "' + producer + '", "' + proportion + '", "Approved" );');
 		
 		}
 		res.render('external.ejs');
