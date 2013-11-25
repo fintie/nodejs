@@ -705,7 +705,7 @@ app.get('/showactivities', function (req,res){
 	connection.query("SELECT * FROM activity;", function (error, rows, fields) {
 		var output = '<html><table border="1">';
 		output += '<th><td>ID</td><td>estimateID</td><td>MilestoneID</td><td>DateTime</td><td>Status</td><td>Classification</td><td>Hours</td><td>Trigger</td>';
-		output += '<td>Deadline</td><td>Producer</td><td>Proportion</td><td>Resource</td><td>Time</td><td>Reference</td><td>IP address</td></th><tr>';
+		output += '<td>Deadline</td><td>Producer</td><td>Proportion</td><td>Resource</td><td>Time</td><td>Reference</td></th><tr>';
 		for(var i in rows){
 			output += '<td>' + rows[i].ID + '</td>';
 			output += '<td>' + rows[i].EstimateID + '</td>';
@@ -721,7 +721,6 @@ app.get('/showactivities', function (req,res){
 			output += '<td>' + rows[i].Resource + '</td>';
 			output += '<td>' + rows[i].Time + '</td>';
 			output += '<td>' + rows[i].Reference + '</td>';
-			output += '<td>' + rows[i].IP address + '</td>';
 		}
 		output += '</tr></table></html>';
 		res.writeHead(200, {'Content-Type': 'text/html'});
