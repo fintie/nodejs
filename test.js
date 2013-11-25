@@ -703,7 +703,7 @@ app.get('/customerinvoice', function (req,res){
 
 app.get('/showactivities', function (req,res){
 	connection.query("SELECT * FROM activity;", function (error, rows, fields) {
-		var output += '<html><table><tr>';
+		var output = '<html><table><tr>';
 		for(var i in rows){
 			output += '<td>' + $rows[i] + '</td>';
 		}
