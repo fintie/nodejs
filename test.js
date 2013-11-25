@@ -438,12 +438,14 @@ app.post('/approve', function (req, res){
 		milestoneid = rows[0].MilestoneID;
 		classification = rows[0].Classification;
 		hours = rows[0].Hours;
+		trigger = rows[0].Trigger;
 		deadline = rows[0].Deadline;
 		producer = rows[0].Producer;
+		proportion = rows[0].Proportion;
 
 		console.log(milestoneid);
-		console.log('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, Deadline, Producer, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + producer + '", "Approved" );');
-		connection.query('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, Deadline, Producer, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + producer + '", "Approved" );', function (error, rows, fields) {
+		console.log('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );');
+		connection.query('INSERT INTO activity(EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion, Status) VALUES("' + estimateid + '", "' + milestoneid + '", NOW(), "' + classification + '", "' + hours + '", "' + deadline + '", "' + trigger + '", "' + producer + '", "' + proportion + '", "Approved" );', function (error, rows, fields) {
 			res.end( 'The estimate has been approved');
 		});		
 		
@@ -697,6 +699,18 @@ app.get('/customerinvoice', function (req,res){
 		res.writeHead(200, {'Content-Type': 'text/html'});
 		res.end(output);
 	});	
+});
+
+app.get('showactivities', function (req,res){
+	connection.query("SELECT * FROM activity;", function (error, rows, fields) {
+		output += '<html><table><tr>';
+		for(var i in rows){
+			output += '<td>' + $rows[i] + '</td>';
+		}
+		output += '</tr></table></html>';
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.end(output);
+	});
 });
 
 
