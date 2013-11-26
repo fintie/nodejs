@@ -313,19 +313,19 @@ app.post('/generateexisting', function(req, res){
 	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
 
 			//var milestoneid = [];
-			var classification = [];
-			var hours = [];
-			var trigger = [];
-			var deadline = [];
-			var consideration = [];
+			//var classification = [];
+			//var hours = [];
+			//var trigger = [];
+			//var deadline = [];
+			//var consideration = [];
 		for (var i in rows) {
 			customerid = rows[i].CustomerID;
 			milestoneid = rows[i].MilestoneID;
-			classification[i] = rows[i].Classification;
-			hours[i] = rows[i].Hours;
-			trigger[i] = rows[i].Trigger;
-			deadline[i] = rows[i].Deadline;
-			consideration[i] = rows[i].Proportion;
+			classification = rows[i].Classification;
+			hours = rows[i].Hours;
+			trigger = rows[i].Trigger;
+			deadline = rows[i].Deadline;
+			consideration = rows[i].Proportion;
 			producer = rows[i].Producer;
 		}
 	
@@ -344,8 +344,8 @@ app.post('/generateexisting', function(req, res){
 			
 		}
 	*/
-		console.log(milestoneid[0]);
-		console.log(classification[0]);
+		//console.log(milestoneid[0]);
+		//console.log(classification[0]);
 			res.render('display.ejs');
 			res.end();
 	});
