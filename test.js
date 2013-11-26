@@ -309,16 +309,16 @@ app.post('/generateexisting', function(req, res){
 
 	console.log('SELECT e.CustomerID, m.ID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, milestones m, activity a WHERE e.ID = a.EstimateID AND m.EstimateID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
 	connection.query('SELECT e.CustomerID, m.ID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, milestones m, activity a WHERE e.ID = a.EstimateID AND m.EstimateID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
-			
-			customerid = rows[0].CustomerID;
-			milestoneid = rows[0].ID;
-			classification = rows[0].Classification;
-			hours = rows[0].Hours;
-			trigger = rows[0].Trigger;
-			deadline = rows[0].Deadline;
-			consideration = rows[0].Proportion;
-			producer = rows[0].Producer;
-			
+			for (var i in rows) {
+			customerid = rows[i].CustomerID;
+			milestoneid = rows[i].ID;
+			classification = rows[i].Classification;
+			hours = rows[i].Hours;
+			trigger = rows[i].Trigger;
+			deadline = rows[i].Deadline;
+			consideration = rows[i].Proportion;
+			producer = rows[i].Producer;
+			}
 	
 	/*
 		var customerid = [];
