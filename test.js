@@ -317,6 +317,7 @@ app.post('/generateexisting', function(req, res){
 			milestoneid = rows[i].MilestoneID;
 			console.log(milestoneid);
 			classification = rows[i].Classification;
+			console.log(classification);
 			hours = rows[i].Hours;
 			trigger = rows[i].Trigger;
 			deadline = rows[i].Deadline;
