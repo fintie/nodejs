@@ -320,7 +320,7 @@ app.post('/generateexisting', function(req, res){
 			var consideration = [];
 		for (var i in rows) {
 			customerid = rows[i].CustomerID;
-			milestoneid[i] = rows[i].MilestoneID;
+			milestoneid = rows[i].MilestoneID;
 			classification[i] = rows[i].Classification;
 			hours[i] = rows[i].Hours;
 			trigger[i] = rows[i].Trigger;
