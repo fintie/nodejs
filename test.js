@@ -329,14 +329,14 @@ app.post('/generateexisting', function(req, res){
 			trigger[i] = rows[i].Trigger;
 			deadline[i] = rows[i].Deadline;
 			consideration[i] = rows[i].Proportion;
-			output += '<br><br>Milestone ID:' + milestoneid[i];
-			output += '<br>Classification:' + classification[i];
-			output += '<br>Hours:' + hours[i];
-			output += '<br>Trigger:' + trigger[i];
-			output += '<br>Deadline:' + deadline[i];
-			output += '<br>Consideration:' + consideration[i];
+			output += '<br><br>Milestone ID: ' + milestoneid[i];
+			output += '<br>Classification: ' + classification[i];
+			output += '<br>Hours: ' + hours[i];
+			output += '<br>Trigger: ' + trigger[i];
+			output += '<br>Deadline: ' + deadline[i];
+			output += '<br>Consideration: ' + consideration[i];
 		}
-			output += '<input type="hidden" name="code" value="' + customerid + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
+			output += '<input type="hidden" name="code" value="' + customerid + '"><br><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
 		var customerid = [];
@@ -384,7 +384,7 @@ app.post('/updateactivity', function (req, res){
 	output += '<br>Price: <input type="text" name="price"><br><br>';
 	for (var i = 0; i < number; i++)
 	{
-		output += '<br>Milestone ID:' + milestoneid;
+		output += '<br>Milestone ID:' + milestoneid[i];
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
 		output += '<option value="consulting">Consulting</option><option value="scoping">Scoping</option><option value="design">Design</option>';
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
