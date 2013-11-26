@@ -309,8 +309,8 @@ app.post('/generateexisting', function(req, res){
 			*/
 	});
 
-	console.log('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
-	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
+	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
 
 			var milestoneid = [];
 			var classification = [];
@@ -318,7 +318,6 @@ app.post('/generateexisting', function(req, res){
 			var trigger = [];
 			var deadline = [];
 			var consideration = [];
-			var producer = [];
 		for (var i in rows) {
 			customerid = rows[i].CustomerID;
 			milestoneid[i] = rows[i].MilestoneID;
@@ -327,7 +326,7 @@ app.post('/generateexisting', function(req, res){
 			trigger[i] = rows[i].Trigger;
 			deadline[i] = rows[i].Deadline;
 			consideration[i] = rows[i].Proportion;
-			producer[i] = rows[i].Producer;
+			producer = rows[i].Producer;
 		}
 	
 	/*
