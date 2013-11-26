@@ -307,10 +307,11 @@ app.post('/generateexisting', function(req, res){
 			}
 	});
 
-	console.log('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
-	connection.query('SELECT e.CustomerID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, m.ID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, milestones m, activity a WHERE e.ID = a.EstimateID AND m.EstimateID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
+	connection.query('SELECT e.CustomerID, m.ID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, milestones m, activity a WHERE e.ID = a.EstimateID AND m.EstimateID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
 			
 			customerid = rows[0].CustomerID;
+			milestoneid = rows[0].ID;
 			classification = rows[0].Classification;
 			hours = rows[0].Hours;
 			trigger = rows[0].Trigger;
@@ -363,6 +364,7 @@ app.post('/updateactivity', function (req, res){
 	output += '<br>Price: <input type="text" name="price"><br><br>';
 	for (var i = 0; i < number; i++)
 	{
+		output += '<br>Milestone ID:' + milestoneid;
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
 		output += '<option value="consulting">Consulting</option><option value="scoping">Scoping</option><option value="design">Design</option>';
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
