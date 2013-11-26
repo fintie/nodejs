@@ -414,6 +414,7 @@ app.post('/regenerate', function (req, res){
 	method = req.body.method;
 	price = req.body.price;
 	consideration = req.body.consideration;
+	milestoneid = req.body.milestoneid;
 
 	console.log('UPDATE estimates SET method= "' + method +'", price="' + price + '" WHERE ID = "' + estimateid + '";');
 	connection.query('UPDATE estimates SET method= "' + method +'", price="' + price + '" WHERE ID = "' + estimateid + '";');
@@ -424,8 +425,8 @@ app.post('/regenerate', function (req, res){
 			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification +'","' + hours + '","' + trigger + '","'  + deadline + '","' + producer + '","' + consideration +'");');
 		}
 		else{
-			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + producer + '","' + consideration[i] +'");');
-			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + producer + '","' + consideration[i] +'");');
+			console.log('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid[i] +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","' + deadline[i] + '","' + producer + '","' + consideration[i] +'");');
+			connection.query('INSERT INTO activity (EstimateID, MilestoneID, DateTime, Classification, Hours, `Trigger`, Deadline, Producer, Proportion) values ("'+ estimateid +'","' + milestoneid[i] +'", NOW(), "' + classification[i] +'","' + hours[i] + '","' + trigger[i] + '","'  + deadline[i] + '","' + producer + '","' + consideration[i] +'");');
 		}
 
 	}	
