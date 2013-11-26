@@ -302,23 +302,26 @@ app.post('/generateexisting', function(req, res){
 	connection.query('SELECT COUNT(m.ID) as counts, m.ID FROM estimates e, milestones m WHERE e.ID = m.EstimateID AND e.ID = "'+ estimateid +'";', function (error, rows, fields) {
 			
 			number = rows[0].counts;
+			/*
 			for(var i=0; i<rows.length;i++){
 				milestoneid = rows[i].ID;				
 			}
+			*/
 	});
 
-	console.log('SELECT e.CustomerID, m.ID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, milestones m, activity a WHERE e.ID = a.EstimateID AND m.EstimateID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
-	connection.query('SELECT e.CustomerID, m.ID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, milestones m, activity a WHERE e.ID = a.EstimateID AND m.EstimateID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
-			for (var i in rows) {
+	console.log('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";');
+	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'";', function (error, rows, fields) {
+			
+		for (var i in rows) {
 			customerid = rows[i].CustomerID;
-			milestoneid = rows[i].ID;
+			milestoneid = rows[i].MilestoneID;
 			classification = rows[i].Classification;
 			hours = rows[i].Hours;
 			trigger = rows[i].Trigger;
 			deadline = rows[i].Deadline;
 			consideration = rows[i].Proportion;
 			producer = rows[i].Producer;
-			}
+		}
 	
 	/*
 		var customerid = [];

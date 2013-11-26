@@ -6,6 +6,8 @@ Producer: <%= producer %>
 <br>
 Price method: 
 <br><br>
+<% for(var i=0; i<milestoneid.length; i++) {%>
+
 Milestone ID: <%= milestoneid %>
 <br>
 Classification: <%= classification %>
@@ -19,7 +21,7 @@ Deadline: <%= deadline %>
 Consideration:
 <br>
 <input type="hidden" name="code" value="<%= customerid %>">
-
+<% } %>
 
 <input type="submit" value="Edit">
 
