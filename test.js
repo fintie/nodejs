@@ -311,7 +311,7 @@ app.post('/generateexisting', function(req, res){
 
 	console.log('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
 	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
-			var customerid = [];
+
 			var milestoneid = [];
 			var classification = [];
 			var hours = [];
@@ -320,7 +320,7 @@ app.post('/generateexisting', function(req, res){
 			var consideration = [];
 			var producer = [];
 		for (var i in rows) {
-			customerid[i] = rows[i].CustomerID;
+			customerid = rows[i].CustomerID;
 			milestoneid[i] = rows[i].MilestoneID;
 			classification[i] = rows[i].Classification;
 			hours[i] = rows[i].Hours;
