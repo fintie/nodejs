@@ -314,9 +314,9 @@ app.post('/generateexisting', function(req, res){
 			
 		for (var i in rows) {
 			customerid = rows[i].CustomerID;
-			milestoneid = rows[i].MilestoneID;
+			milestoneid[i] = rows[i].MilestoneID;
 			console.log(milestoneid);
-			classification = rows[i].Classification;
+			classification[i] = rows[i].Classification;
 			hours = rows[i].Hours;
 			trigger = rows[i].Trigger;
 			deadline = rows[i].Deadline;
