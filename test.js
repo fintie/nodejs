@@ -312,23 +312,32 @@ app.post('/generateexisting', function(req, res){
 	console.log('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
 	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
 
-			//var milestoneid = [];
-			//var classification = [];
-			//var hours = [];
-			//var trigger = [];
-			//var deadline = [];
-			//var consideration = [];
+			var milestoneid = [];
+			var classification = [];
+			var hours = [];
+			var trigger = [];
+			var deadline = [];
+			var consideration = [];
+			customerid = rows[0].CustomerID;
+			producer = rows[0].Producer;
+			output = '<html><form name="input" action="/updateactivity" method="post"><br>Customer ID:' + customerid;
+			output += '<br>Producer:' +  producer;
 		for (var i in rows) {
-			customerid = rows[i].CustomerID;
-			milestoneid = rows[i].MilestoneID;
-			classification = rows[i].Classification;
-			hours = rows[i].Hours;
-			trigger = rows[i].Trigger;
-			deadline = rows[i].Deadline;
-			consideration = rows[i].Proportion;
-			producer = rows[i].Producer;
+			milestoneid[i] = rows[i].MilestoneID;
+			classification[i] = rows[i].Classification;
+			hours[i] = rows[i].Hours;
+			trigger[i] = rows[i].Trigger;
+			deadline[i] = rows[i].Deadline;
+			consideration[i] = rows[i].Proportion;
+			output += '<br><br>Milestone ID:' + milestoneid[i];
+			output += '<br>Classification:' + classification[i];
+			output += '<br>Hours:' + hours[i];
+			output += '<br>Trigger:' + trigger[i];
+			output += '<br>Deadline:' + deadline[i];
+			output += '<br>Consideration:' + consideration[i];
 		}
-	
+			output += '<input type="hidden" name="code" value="' + customerid + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
+			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
 		var customerid = [];
 		var classification = [];
@@ -346,7 +355,8 @@ app.post('/generateexisting', function(req, res){
 	*/
 		//console.log(milestoneid[0]);
 		//console.log(classification[0]);
-			res.render('display.ejs');
+			//res.render('display.ejs');
+		res.render(output);
 			res.end();
 	});
 });
