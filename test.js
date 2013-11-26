@@ -317,7 +317,6 @@ app.post('/generateexisting', function(req, res){
 			milestoneid = rows[i].MilestoneID;
 			console.log(milestoneid);
 			classification = rows[i].Classification;
-			console.log(classification);
 			hours = rows[i].Hours;
 			trigger = rows[i].Trigger;
 			deadline = rows[i].Deadline;
@@ -340,6 +339,8 @@ app.post('/generateexisting', function(req, res){
 			
 		}
 	*/
+		console.log(milestoneid[0]);
+		console.log(classification[0]);
 			res.render('display.ejs');
 			res.end();
 	});
