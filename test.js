@@ -356,8 +356,7 @@ app.post('/generateexisting', function(req, res){
 		//console.log(milestoneid[0]);
 		//console.log(classification[0]);
 			//res.render('display.ejs');
-		res.render(output);
-			res.end();
+		res.end(output);
 	});
 });
 
