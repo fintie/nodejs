@@ -363,7 +363,7 @@ app.post('/generateexisting', function(req, res){
 
 app.post('/updateactivity', function (req, res){
 
-	milestoneids[i] = req.body.mIDs;
+	milestoneids[] = req.body.mIDs;
 	customerid = req.body.code;
 	//estimateid = req.body.estimate;
 	console.log(customerid);
