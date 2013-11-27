@@ -309,8 +309,8 @@ app.post('/generateexisting', function(req, res){
 			*/
 	});
 
-	console.log('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
-	connection.query('SELECT e.CustomerID, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, e.Price, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
+	connection.query('SELECT e.CustomerID, e.Price, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
 
 			var milestoneid = [];
 			var classification = [];
@@ -319,6 +319,7 @@ app.post('/generateexisting', function(req, res){
 			var deadline = [];
 			var consideration = [];
 			customerid = rows[0].CustomerID;
+			price = rows[0].Price;
 			producer = rows[0].Producer;
 			output = '<html><form name="input" action="/updateactivity" method="post"><br>Customer ID:' + customerid;
 			output += '<br>Producer:' +  producer;
@@ -337,7 +338,9 @@ app.post('/generateexisting', function(req, res){
 			output += '<br>Consideration: ' + consideration[i];
 		}
 			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br>';
-			output += '<input type="hidden" name="mIDs" value="' + milestoneid + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
+			output += '<input type="hidden" name="mIDs" value="' + milestoneid + '"><br>';
+			output += '<input type="hidden" name="price" value="' + price + '"><br>';
+			output += '<input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
 		var customerid = [];
@@ -363,6 +366,7 @@ app.post('/generateexisting', function(req, res){
 
 app.post('/updateactivity', function (req, res){
 
+	price = req.body.price;
 	milestoneids = req.body.mIDs;
 	milestoneid = milestoneids.split(",");
 	customerid = req.body.code;
@@ -383,7 +387,7 @@ app.post('/updateactivity', function (req, res){
 		output += '<option>'+ rows[n].ID +'</option>';
 	}
 	output += '</select><br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
-	output += '<br>Price: <input type="text" name="price">';
+	output += '<br>Price: <input type="text" name="price" value="' + price + '">';
 	
 	output += '<br><br>';
 	for (var i = 0; i < number; i++)
