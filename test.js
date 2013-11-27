@@ -337,7 +337,7 @@ app.post('/generateexisting', function(req, res){
 			output += '<br>Consideration: ' + consideration[i];
 		}
 			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br>';
-			output += '<input type="hidden" name="mIDs[]" value="' + milestoneid[i] + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
+			output += '<input type="hidden" name="mIDs[]" value="' + milestoneid + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
 		var customerid = [];
@@ -366,7 +366,7 @@ app.post('/updateactivity', function (req, res){
 	milestoneids = req.body.mIDs;
 	customerid = req.body.code;
 	//estimateid = req.body.estimate;
-	console.log(customerid);
+	//console.log(customerid);
 	//var classification = new Array();
 	
 	connection.query('SELECT ID FROM users WHERE Classification = "Production";', function (error, rows, fields) {
