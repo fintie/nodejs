@@ -309,8 +309,8 @@ app.post('/generateexisting', function(req, res){
 			*/
 	});
 
-	console.log('SELECT e.CustomerID, e.Price, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
-	connection.query('SELECT e.CustomerID, e.Price, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
+	console.log('SELECT e.CustomerID, e.price, e.method, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;');
+	connection.query('SELECT e.CustomerID, e.price, e.method, a.MilestoneID, a.Classification, a.Hours, a.Trigger, a.Deadline, a.Producer, a.Proportion FROM estimates e, activity a WHERE e.ID = a.EstimateID AND a.EstimateID = "'+ estimateid +'" GROUP BY a.MilestoneID;', function (error, rows, fields) {
 
 			var milestoneid = [];
 			var classification = [];
@@ -340,6 +340,12 @@ app.post('/generateexisting', function(req, res){
 			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br>';
 			output += '<input type="hidden" name="mIDs" value="' + milestoneid + '"><br>';
 			output += '<input type="hidden" name="price" value="' + price + '"><br>';
+			output += '<input type="hidden" name="method" value="' + method + '"><br>';
+			output += '<input type="hidden" name="classifications" value="' + classification + '"><br>';
+			output += '<input type="hidden" name="hourss" value="' + hours + '"><br>';
+			output += '<input type="hidden" name="triggers" value="' + trigger + '"><br>';
+			output += '<input type="hidden" name="deadlines" value="' + deadline + '"><br>';
+			output += '<input type="hidden" name="considerations" value="' + consideration + '"><br>';
 			output += '<input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
@@ -367,9 +373,21 @@ app.post('/generateexisting', function(req, res){
 app.post('/updateactivity', function (req, res){
 
 	price = req.body.price;
+	method = req.body.method;
 	milestoneids = req.body.mIDs;
 	milestoneid = milestoneids.split(",");
 	customerid = req.body.code;
+	classifications = req.body.classifications;
+	classification = classifications.split(",");
+	hourss = req.body.hourss;
+	hours = hourss.split(",");
+	triggers = req.body.triggers;
+	trigger = triggers.split(",");
+	deadlines = req.body.deadlines;
+	deadline = deadlines.split(",");
+	considerations = req.body.considerations;
+	consideration = considerations.split(",");
+	
 	//estimateid = req.body.estimate;
 	//console.log(customerid);
 	//var classification = new Array();
@@ -398,12 +416,12 @@ app.post('/updateactivity', function (req, res){
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
 		output += '<option value="fixes">Fixes</option><option value="support">Support</option><option value="payment">Progress Payment</option>';
 		output += '<option value="production">Production</option></select>';
-		output += '<br>Hours: <input type="text" name="hours">';
+		output += '<br>Hours: <input type="text" name="hours" value="' + hours[i] + '">';
 		//output += '<br>Rate: <input type="text" name="rate">';
 		output += '<br>Trigger:<select name="trigger"><option value="approval">Estimate approval</option><option value="premilestone">The Previous milestone</option>';
 		output += '<option value="today">Today\'s date</option><option value="scoping">Scoping completed</option></select>';
-		output += '<br>Deadline: <input type="text" name="deadline">';
-		output += '<br>Consideration: <input type="text" name="consideration"><br>';
+		output += '<br>Deadline: <input type="text" name="deadline" value="' + deadline[i] + '">';
+		output += '<br>Consideration: <input type="text" name="consideration" value="' + consideration[i] + '"><br>';
 		//output += '<br>Resource:<select name="resource"><option value="10">10</option><option value="20">20</option></select><br>';
 	}
 	output += '<br><input type="submit" value="Regenerate"><input type="button" value="Cancel" onclick="window.location = \'/\' "></form></body></html>';
