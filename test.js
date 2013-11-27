@@ -319,7 +319,8 @@ app.post('/generateexisting', function(req, res){
 			var deadline = [];
 			var consideration = [];
 			customerid = rows[0].CustomerID;
-			price = rows[0].Price;
+			price = rows[0].price;
+			method = rows[0].method;
 			producer = rows[0].Producer;
 			output = '<html><form name="input" action="/updateactivity" method="post"><br>Customer ID:' + customerid;
 			output += '<br>Producer:' +  producer;
