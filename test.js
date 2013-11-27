@@ -335,6 +335,7 @@ app.post('/generateexisting', function(req, res){
 			output += '<br>Trigger: ' + trigger[i];
 			output += '<br>Deadline: ' + deadline[i];
 			output += '<br>Consideration: ' + consideration[i];
+			mIDs = milestoneid[i] + ', ';
 		}
 			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
@@ -362,7 +363,7 @@ app.post('/generateexisting', function(req, res){
 
 app.post('/updateactivity', function (req, res){
 
-
+	milestoneids = req.body.mIDs;
 	customerid = req.body.code;
 	//estimateid = req.body.estimate;
 	console.log(customerid);
@@ -382,6 +383,7 @@ app.post('/updateactivity', function (req, res){
 	}
 	output += '</select><br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
 	output += '<br>Price: <input type="text" name="price"><br><br>';
+	output += '<br>Milestone IDs:' + milestoneids;
 	for (var i = 0; i < number; i++)
 	{
 		//output += '<br>Milestone ID:' + milestoneid[i];
@@ -414,7 +416,6 @@ app.post('/regenerate', function (req, res){
 	method = req.body.method;
 	price = req.body.price;
 	consideration = req.body.consideration;
-	milestoneid = req.body.milestoneid;
 
 	console.log('UPDATE estimates SET method= "' + method +'", price="' + price + '" WHERE ID = "' + estimateid + '";');
 	connection.query('UPDATE estimates SET method= "' + method +'", price="' + price + '" WHERE ID = "' + estimateid + '";');
