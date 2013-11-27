@@ -383,12 +383,11 @@ app.post('/updateactivity', function (req, res){
 	}
 	output += '</select><br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
 	output += '<br>Price: <input type="text" name="price">';
-	output += '<br>Milestone IDs 1:' + milestoneids[0];
-	output += '<br>Milestone IDs 2:' + milestoneids[1];
+	
 	output += '<br><br>';
 	for (var i = 0; i < number; i++)
 	{
-		//output += '<br>Milestone ID:' + milestoneid[i];
+		output += '<br>Milestone ID:' + milestoneid[i];
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
 		output += '<option value="consulting">Consulting</option><option value="scoping">Scoping</option><option value="design">Design</option>';
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
