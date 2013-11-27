@@ -364,6 +364,7 @@ app.post('/generateexisting', function(req, res){
 app.post('/updateactivity', function (req, res){
 
 	milestoneids = req.body.mIDs;
+	milestoneid = milestoneids.split(",");
 	customerid = req.body.code;
 	//estimateid = req.body.estimate;
 	//console.log(customerid);
@@ -387,7 +388,7 @@ app.post('/updateactivity', function (req, res){
 	output += '<br><br>';
 	for (var i = 0; i < number; i++)
 	{
-		output += '<br>Milestone ID:' + milestoneids;
+		output += '<br>Milestone ID:' + milestoneid[i];
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
 		output += '<option value="consulting">Consulting</option><option value="scoping">Scoping</option><option value="design">Design</option>';
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
