@@ -337,7 +337,7 @@ app.post('/generateexisting', function(req, res){
 			output += '<br>Consideration: ' + consideration[i];
 		}
 			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br>';
-			output += '<input type="hidden" name="mIDs[]" value="' + milestoneid + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
+			output += '<input type="hidden" name="mIDs" value="' + milestoneid + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
 		var customerid = [];
@@ -387,7 +387,7 @@ app.post('/updateactivity', function (req, res){
 	output += '<br><br>';
 	for (var i = 0; i < number; i++)
 	{
-		output += '<br>Milestone ID:' + milestoneids[i];
+		output += '<br>Milestone ID:' + milestoneids;
 		output += '<br>Classification:<select name="classification"><option value="appointment">Appointment</option><option value="formative">Formative</option>';
 		output += '<option value="consulting">Consulting</option><option value="scoping">Scoping</option><option value="design">Design</option>';
 		output += '<option value="slicing">Slicing</option><option value="development">Development</option><option value="deployment">Deployment</option>';
