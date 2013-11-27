@@ -335,9 +335,9 @@ app.post('/generateexisting', function(req, res){
 			output += '<br>Trigger: ' + trigger[i];
 			output += '<br>Deadline: ' + deadline[i];
 			output += '<br>Consideration: ' + consideration[i];
-			mIDs = milestoneid[i] + ', ';
 		}
-			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
+			output += '<input type="hidden" name="code" value="' + customerid + '"><br><br>';
+			output += '<input type="hidden" name="mIDs[]" value="' + milestoneid[i] + '"><input type="submit" value="Edit"><input type="button" value="Finish" onclick="window.location = \'/\' " /></form>';
 			output += '	<form name="input" action="/publish" method="post">	<input type="submit" value="Publish"> </form></html>';
 	/*
 		var customerid = [];
@@ -382,8 +382,10 @@ app.post('/updateactivity', function (req, res){
 		output += '<option>'+ rows[n].ID +'</option>';
 	}
 	output += '</select><br>Pricing method:<input type="radio" name="method" value="proportion">Proportion<input type="radio" name="method" value="rate">Rate<input type="radio" name="method" value="manual">Manual';
-	output += '<br>Price: <input type="text" name="price"><br><br>';
-	output += '<br>Milestone IDs:' + milestoneids;
+	output += '<br>Price: <input type="text" name="price">';
+	output += '<br>Milestone IDs 1:' + milestoneids[0];
+	output += '<br>Milestone IDs 2:' + milestoneids[1];
+	output += '<br><br>';
 	for (var i = 0; i < number; i++)
 	{
 		//output += '<br>Milestone ID:' + milestoneid[i];
