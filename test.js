@@ -396,7 +396,7 @@ app.post('/updateactivity', function (req, res){
 	if(typeof deadlines!=="undefined"){
 		deadline = deadlines.split(",");
 	}
-	considerations = req.body.considerations;
+	consideration = req.body.considerations;
 	if(typeof considerations!=="undefined"){
 		consideration = considerations.split(",");
 	}
