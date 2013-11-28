@@ -381,15 +381,25 @@ app.post('/updateactivity', function (req, res){
 	}
 	customerid = req.body.code;
 	classifications = req.body.classifications;
-	classification = classifications.split(",");
+	if(typeof classifications!=="undefined"){
+		classification = classifications.split(",");
+	}
 	hourss = req.body.hourss;
-	hours = hourss.split(",");
+	if(typeof hourss!=="undefined"){
+		hours = hourss.split(",");
+	}
 	triggers = req.body.triggers;
-	trigger = triggers.split(",");
+	if(typeof trigers!=="undefined"){
+		trigger = triggers.split(",");
+	}
 	deadlines = req.body.deadlines;
-	deadline = deadlines.split(",");
+	if(typeof deadlines!=="undefined"){
+		deadline = deadlines.split(",");
+	}
 	considerations = req.body.considerations;
-	consideration = considerations.split(",");
+	if(typeof considerations!=="undefined"){
+		consideration = considerations.split(",");
+	}
 	
 	//estimateid = req.body.estimate;
 	//console.log(customerid);
