@@ -396,7 +396,7 @@ app.post('/updateactivity', function (req, res){
 	if(typeof deadlines!=="undefined"){
 		deadline = deadlines.split(",");
 	}
-	consideration = req.body.considerations;
+	considerations = req.body.considerations;
 	if(typeof considerations!=="undefined"){
 		consideration = considerations.split(",");
 	}
@@ -434,7 +434,9 @@ app.post('/updateactivity', function (req, res){
 		output += '<br>Trigger:<select name="trigger"><option value="approval">Estimate approval</option><option value="premilestone">The Previous milestone</option>';
 		output += '<option value="today">Today\'s date</option><option value="scoping">Scoping completed</option></select>';
 		output += '<br>Deadline: <input type="text" name="deadline" value="' + deadline[i] + '">';
-		output += '<br>Consideration: <input type="text" name="consideration" value="' + consideration[i] + '"><br>';
+		if(typeof consideration!=="undefined"){
+			output += '<br>Consideration: <input type="text" name="consideration" value="' + consideration[i] + '"><br>';
+		}
 		//output += '<br>Resource:<select name="resource"><option value="10">10</option><option value="20">20</option></select><br>';
 	}
 	output += '<br><input type="submit" value="Regenerate"><input type="button" value="Cancel" onclick="window.location = \'/\' "></form></body></html>';
