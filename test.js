@@ -258,7 +258,7 @@ app.post('/generate', function (req, res){
 				milestoneid = res.insertId;
 					
 
-				console.log(limit);
+				//console.log(limit);
 				
 				console.log('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
 				connection.query('UPDATE activity SET MilestoneID = "' + milestoneid  +'" WHERE EstimateID = "' + estimateid + '" ORDER BY ID DESC LIMIT ' + limit + ';');
