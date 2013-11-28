@@ -376,7 +376,9 @@ app.post('/updateactivity', function (req, res){
 	price = req.body.price;
 	method = req.body.method;
 	milestoneids = req.body.mIDs;
-	milestoneid = milestoneids.split(",");
+	if(milestoneid!=="undefined"){
+		milestoneid = milestoneids.split(",");
+	}
 	customerid = req.body.code;
 	classifications = req.body.classifications;
 	classification = classifications.split(",");
